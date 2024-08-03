@@ -132,7 +132,6 @@ public class Form_DanhSachSanPham extends javax.swing.JPanel {
         jLabel10 = new javax.swing.JLabel();
         txtTimKiemDanhSachSanPham = new javax.swing.JTextField();
         jButton1 = new javax.swing.JButton();
-        btnAllSanPham = new javax.swing.JCheckBox();
 
         setBackground(new java.awt.Color(204, 204, 255));
 
@@ -468,8 +467,6 @@ public class Form_DanhSachSanPham extends javax.swing.JPanel {
             }
         });
 
-        btnAllSanPham.setText("jCheckBox1");
-
         javax.swing.GroupLayout panel_Custom3Layout = new javax.swing.GroupLayout(panel_Custom3);
         panel_Custom3.setLayout(panel_Custom3Layout);
         panel_Custom3Layout.setHorizontalGroup(
@@ -480,8 +477,6 @@ public class Form_DanhSachSanPham extends javax.swing.JPanel {
                     .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 1052, Short.MAX_VALUE)
                     .addGroup(panel_Custom3Layout.createSequentialGroup()
                         .addComponent(jLabel10)
-                        .addGap(18, 18, 18)
-                        .addComponent(btnAllSanPham)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addComponent(txtTimKiemDanhSachSanPham, javax.swing.GroupLayout.PREFERRED_SIZE, 276, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -495,9 +490,7 @@ public class Form_DanhSachSanPham extends javax.swing.JPanel {
                 .addGroup(panel_Custom3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(panel_Custom3Layout.createSequentialGroup()
                         .addGap(0, 17, Short.MAX_VALUE)
-                        .addGroup(panel_Custom3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(jLabel10)
-                            .addComponent(btnAllSanPham)))
+                        .addComponent(jLabel10))
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, panel_Custom3Layout.createSequentialGroup()
                         .addGroup(panel_Custom3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(txtTimKiemDanhSachSanPham)
@@ -981,7 +974,6 @@ public class Form_DanhSachSanPham extends javax.swing.JPanel {
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JCheckBox btnAllSanPham;
     private Swing_Custom.CustomButton1 btnChiTietSanPham;
     private Swing_Custom.CustomButton1 btnLamMoi;
     private Swing_Custom.CustomButton1 btnSua;

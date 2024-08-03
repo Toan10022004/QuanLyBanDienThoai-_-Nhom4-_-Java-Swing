@@ -3,6 +3,7 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JFrame.java to edit this template
  */
 package ban_hang;
+import Form_View.Form_ChiTietSanPham;
 import java.awt.Graphics;
 import java.text.Format;
 import java.util.ArrayList;
@@ -31,6 +32,10 @@ public class View_BanHang extends javax.swing.JFrame {
         this.fillTableSP(rpTD.getAll());
         this.fillTableKH(rpTD.getAllKH());
         this.fillTableHoaDon(rp.getAllHoaDon());
+        
+        this.setLocationRelativeTo(this);
+        //JFrame.HIDE_ON_CLOSE  //sẽ bị ẩn nhưng vẫn tồn tại, và chương trình sẽ tiếp tục chạy.
+        this.setDefaultCloseOperation(View_BanHang.DISPOSE_ON_CLOSE);
     }
     void fillTableHoaDon(ArrayList<Model_HoaDon> list) {
         mol = (DefaultTableModel) tbl_HoaDon.getModel();

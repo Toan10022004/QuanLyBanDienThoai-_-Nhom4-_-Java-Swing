@@ -34,6 +34,20 @@ public class Model_QuanLyDonHang {
         this.trangThai = trangThai;
     }
 
+    public Model_QuanLyDonHang(int maDH, int maKH, int idSP, int soLuong, int thanhTien, String ngayDatHang, String trangThai) {
+        this.maDH = maDH;
+        this.maKH = maKH;
+        this.idSP = idSP;
+        this.soLuong = soLuong;
+        this.thanhTien = thanhTien;
+        this.ngayDatHang = ngayDatHang;
+        this.trangThai = trangThai;
+    }
+
+    public Model_QuanLyDonHang(int soLuong) {
+        this.soLuong = soLuong;
+    }
+
     public Model_QuanLyDonHang(int maKH, int idSP, int soLuong, String trangThai) {
         this.maKH = maKH;
         this.idSP = idSP;
@@ -109,10 +123,14 @@ public class Model_QuanLyDonHang {
         this.ngayDatHang = ngayDatHang;
     }
 
+    public Model_QuanLyDonHang(String trangThai) {
+        this.trangThai = trangThai;
+    }
+
     public void setTrangThai(String trangThai) {
         this.trangThai = trangThai;
     }
     public Object[] toDataRow(){
-       return new Object[]{this.getMaDH(),this.getTenKH(),this.getTenSP(),this.getSoLuong(),this.getThanhTien(),this.getNgayDatHang()};
+       return new Object[]{this.getMaDH(),this.getMaKH(),this.getIdSP(),this.getSoLuong(),this.getThanhTien(),this.getNgayDatHang(),this.getTrangThai(),this.getTenKH(),this.getTenSP()};
     }
 }

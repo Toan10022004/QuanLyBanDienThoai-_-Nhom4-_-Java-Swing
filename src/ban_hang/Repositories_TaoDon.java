@@ -82,6 +82,45 @@ public class Repositories_TaoDon {
             return null;
         }
     }
+     public ArrayList<Model_ctsp> getAllCTSP(int idSanPham){
+        sql = "select id,id_san_pham,mau_sac,gia_ban,so_luong_ton,trang_thai,mo_Ta,ngay_tao,ngay_sua from ctsp where id_san_pham = ?";
+    ArrayList<Model_ctsp> list_CTSP = new ArrayList<>();
+        try{
+            con = DBConnect.getConnection();
+            ps = con.prepareStatement(sql);
+            ps.setObject(1, idSanPham);
+            rs = ps.executeQuery(); //chạy câu lệnh select
+            while(rs.next()){
+                int id;
+                int idSP;
+//                int imei;
+                String mauSac;
+                int giaBan;
+                int soLuongTon;
+                String trangThai;
+                String moTa;
+                String ngayTao;
+                String ngaySua;
+                id = rs.getInt(1);
+                idSP = rs.getInt(2);
+//                imei = rs.getInt(3);
+                mauSac = rs.getString(3);
+                giaBan = rs.getInt(4);
+                soLuongTon = rs.getInt(5);     
+                trangThai = rs.getString(6);
+                moTa = rs.getString(7);
+                ngayTao = rs.getString(8);
+                ngaySua = rs.getString(9);
+                
+                Model_ctsp ctsp = new Model_ctsp(id, idSP, mauSac, giaBan, soLuongTon, trangThai, moTa, ngayTao, ngaySua);
+                list_CTSP.add(ctsp);               
+            }
+            return list_CTSP;
+        }catch(Exception e){
+            e.printStackTrace();
+            return null;
+        }
+    }
     public int ThemKhachHang(Model_KhachHang KH){
         //lấy đối tượng m từ form thêm vào database
         sql = "INSERT INTO QuanLyKhachHang (TenKH, SDT, Email, DiaChi)\n" +
@@ -107,7 +146,7 @@ public class Repositories_TaoDon {
         try{
             con = DBConnect.getConnection();
             ps = con.prepareStatement(sql);
-            ps.setObject(1, DH.getTenKH()); //số 1 tương ứng với dấu hỏi chấm đầu tiên
+            ps.setObject(1, DH.getMaKH()); //số 1 tương ứng với dấu hỏi chấm đầu tiên
             ps.setObject(2, DH.getIdSP());
             ps.setObject(3, DH.getSoLuong());
             ps.setObject(4, DH.getTrangThai());
