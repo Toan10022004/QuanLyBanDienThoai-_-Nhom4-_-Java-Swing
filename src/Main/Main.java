@@ -4,7 +4,7 @@
  */
 package Main;
 
-import ban_hang.View_BanHang;
+
 
 /**
  *
@@ -69,6 +69,7 @@ public class Main extends javax.swing.JFrame {
         }
         form_KhachHang = new Form_View.Form_KhachHang();
         form_loai = new Form_View.Form_loai();
+        form_BanHang = new Form_View.Form_BanHang();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
@@ -335,6 +336,7 @@ public class Main extends javax.swing.JFrame {
         tablepanel_from.addTab("tab8", form_KhuyenMai);
         tablepanel_from.addTab("tab7", form_KhachHang);
         tablepanel_from.addTab("tab8", form_loai);
+        tablepanel_from.addTab("tab9", form_BanHang);
 
         getContentPane().add(tablepanel_from, new org.netbeans.lib.awtextra.AbsoluteConstraints(192, -33, 1343, 770));
 
@@ -367,8 +369,8 @@ public class Main extends javax.swing.JFrame {
 
     private void btnBanHangActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBanHangActionPerformed
         // TODO add your handling code here:
-//        tablepanel_from.setSelectedComponent(form_BanHang);
-new View_BanHang().setVisible(true);
+        tablepanel_from.setSelectedComponent(form_BanHang);
+//new View_BanHang().setVisible(true);
     }//GEN-LAST:event_btnBanHangActionPerformed
 
     private void btnHoaDonMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnHoaDonMouseClicked
@@ -480,6 +482,7 @@ new View_BanHang().setVisible(true);
     private javax.swing.JButton btnKhachHang;
     private javax.swing.JButton btnVocher;
     private Swing_Custom.CustomButton1 customButton11;
+    private Form_View.Form_BanHang form_BanHang;
     private thinh.Form_HoaDon form_HoaDon;
     private Form_View.Form_KhachHang form_KhachHang;
     private thinh.Form_KhuyenMai form_KhuyenMai;
