@@ -27,7 +27,7 @@ import javax.swing.table.DefaultTableModel;
  * @author thinh
  */
 public class Form_HoaDon extends javax.swing.JPanel {
-    ArrayList<HoaDon> listView = new ArrayList<>();
+    ArrayList<Model_HoaDon> listView = new ArrayList<>();
     DefaultTableModel model;
     HoaDonRe hds = new HoaDonRe();
     /**
@@ -41,7 +41,7 @@ public class Form_HoaDon extends javax.swing.JPanel {
     public void filltoTable() {
         model = (DefaultTableModel) tblHoaDon.getModel();
         model.setRowCount(0);
-        for (HoaDon hoadon : listView) {
+        for (Model_HoaDon hoadon : listView) {
             model.addRow(hoadon.toRowTable());
         }
     }
@@ -211,7 +211,7 @@ public class Form_HoaDon extends javax.swing.JPanel {
         int selectedRow = tblHoaDon.getSelectedRow();
         if (selectedRow >= 0) {
             // Lấy dữ liệu từ dòng được chọn
-            HoaDon selectedHoaDon = listView.get(selectedRow);
+            Model_HoaDon selectedHoaDon = listView.get(selectedRow);
 //            exportPDF(selectedHoaDon);
         } else {
             JOptionPane.showMessageDialog(this, "Vui lòng chọn một hóa đơn để xuất!", "Thông báo", JOptionPane.WARNING_MESSAGE);
@@ -220,9 +220,9 @@ public class Form_HoaDon extends javax.swing.JPanel {
 
     private void btnSearchActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSearchActionPerformed
         String keyword = txtSearch.getText().trim().toLowerCase();
-        ArrayList<HoaDon> filteredList = new ArrayList<>();
+        ArrayList<Model_HoaDon> filteredList = new ArrayList<>();
 
-        for (HoaDon hoadon : listView) {
+        for (Model_HoaDon hoadon : listView) {
             if (hoadon.getTenKH().toLowerCase().contains(keyword) ||
                 hoadon.getTenSP().toLowerCase().contains(keyword) ||
                 hoadon.getMaHD().toLowerCase().contains(keyword)) {
@@ -231,7 +231,7 @@ public class Form_HoaDon extends javax.swing.JPanel {
         }
 
         model.setRowCount(0); // Xóa tất cả các hàng trong bảng
-        for (HoaDon hoadon : filteredList) {
+        for (Model_HoaDon hoadon : filteredList) {
             model.addRow(hoadon.toRowTable());
         }
     }//GEN-LAST:event_btnSearchActionPerformed

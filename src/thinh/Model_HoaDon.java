@@ -8,7 +8,7 @@ package thinh;
  *
  * @author thinh
  */
-public class HoaDon {
+public class Model_HoaDon {
     public String MaHD;
     public String TenKH;
     public String TenSP;
@@ -64,7 +64,7 @@ public class HoaDon {
         this.ThanhTien = ThanhTien;
     }
 
-    public HoaDon(String MaHD, String TenKH, String TenSP, Integer SoLuong, String GhiChu, Integer ThanhTien) {
+    public Model_HoaDon(String MaHD, String TenKH, String TenSP, Integer SoLuong, String GhiChu, Integer ThanhTien) {
         this.MaHD = MaHD;
         this.TenKH = TenKH;
         this.TenSP = TenSP;
@@ -73,7 +73,7 @@ public class HoaDon {
         this.ThanhTien = ThanhTien;
     }
 
-    public HoaDon() {
+    public Model_HoaDon() {
     }
     public Object[] toRowTable() {
         return new Object[] {

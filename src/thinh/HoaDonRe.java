@@ -10,8 +10,8 @@ import java.util.ArrayList;
 
 public class HoaDonRe {
     ConnectDao cdao = new ConnectDao();
-    public ArrayList<HoaDon> getAllHoaDon() throws SQLException{
-        ArrayList<HoaDon> lsHoadon = new ArrayList<>();
+    public ArrayList<Model_HoaDon> getAllHoaDon() throws SQLException{
+        ArrayList<Model_HoaDon> lsHoadon = new ArrayList<>();
         Connection cn = cdao.getConnectDAO();
          String sql = "SELECT HoaDon.MaHD, QuanLyKhachHang.TenKH, san_pham.ten_san_pham AS TenSP, QuanLyDonHang.SoLuong, ctsp.gia_ban * QuanLyDonHang.SoLuong AS ThanhTien " +
                      "FROM ctsp " +
@@ -23,7 +23,7 @@ public class HoaDonRe {
 
         try (Statement stm = cn.createStatement(); ResultSet rs = stm.executeQuery(sql)) {
             while (rs.next()) {
-                HoaDon hd = new HoaDon();
+                Model_HoaDon hd = new Model_HoaDon();
                 hd.setMaHD(rs.getString("MaHD"));
                 hd.setTenKH(rs.getString("TenKH"));
                 hd.setTenSP(rs.getString("TenSP"));

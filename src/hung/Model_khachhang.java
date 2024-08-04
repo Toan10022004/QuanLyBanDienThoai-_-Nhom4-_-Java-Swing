@@ -5,11 +5,13 @@
 package hung;
 
 import java.util.Vector;
+import lombok.ToString;
 
 /**
  *
  * @author admin
  */
+@ToString
 public class Model_khachhang {
   private int MaKH ;
   private String TenKH ;
