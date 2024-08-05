@@ -4,7 +4,7 @@
  */
 package Main;
 
-
+import Form_View.Form_BanHang;
 
 /**
  *
@@ -191,15 +191,18 @@ public class Main extends javax.swing.JFrame {
 
         jLabel3.setText("Mã Nhân Viên");
 
-        jLabel4.setText("........");
+        jLabel4.setFont(new java.awt.Font("Segoe UI", 3, 12)); // NOI18N
+        jLabel4.setText("NV009");
 
         jLabel5.setText("Tên Nhân Viên");
 
-        jLabel6.setText("........");
+        jLabel6.setFont(new java.awt.Font("Segoe UI", 3, 12)); // NOI18N
+        jLabel6.setText("Nguyen Van A");
 
         jLabel7.setText("Quyền Hạn");
 
-        jLabel9.setText("........");
+        jLabel9.setFont(new java.awt.Font("Segoe UI", 3, 12)); // NOI18N
+        jLabel9.setText("ADMIN");
 
         javax.swing.GroupLayout panel_Custom1Layout = new javax.swing.GroupLayout(panel_Custom1);
         panel_Custom1.setLayout(panel_Custom1Layout);
@@ -298,8 +301,8 @@ public class Main extends javax.swing.JFrame {
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 76, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(31, 31, 31)
+                .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 52, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(15, 15, 15)
                 .addComponent(btnBanHang6, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(btnBanHang, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -309,7 +312,7 @@ public class Main extends javax.swing.JFrame {
                 .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(btbLoai, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jButton2, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(btnVocher, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -323,7 +326,7 @@ public class Main extends javax.swing.JFrame {
                 .addComponent(jSeparator1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(panel_Custom1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap())
+                .addContainerGap(46, Short.MAX_VALUE))
         );
 
         getContentPane().add(jPanel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, -1, 737));
@@ -353,13 +356,13 @@ public class Main extends javax.swing.JFrame {
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
         // TODO add your handling code here:
-                tablepanel_from.setSelectedComponent(form_dssp);
+        tablepanel_from.setSelectedComponent(form_dssp);
 
     }//GEN-LAST:event_jButton1ActionPerformed
 
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
         // TODO add your handling code here:
-                tablepanel_from.setSelectedComponent(form_hang);
+        tablepanel_from.setSelectedComponent(form_hang);
 
     }//GEN-LAST:event_jButton2ActionPerformed
 
@@ -369,8 +372,20 @@ public class Main extends javax.swing.JFrame {
 
     private void btnBanHangActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBanHangActionPerformed
         // TODO add your handling code here:
+        // Loại bỏ panel hiện tại nếu tồn tại
+        int index = tablepanel_from.indexOfComponent(form_BanHang);
+        if (index != -1) {
+            tablepanel_from.remove(index);
+        }
+
+        // Tạo một instance mới của Form_BanHang
+        form_BanHang = new Form_View.Form_BanHang();
+
+        // Thêm instance mới vào tabbed pane
+        tablepanel_from.addTab("Bán Hàng", form_BanHang);
+
+        // Đặt instance mới làm component được chọn
         tablepanel_from.setSelectedComponent(form_BanHang);
-//new View_BanHang().setVisible(true);
     }//GEN-LAST:event_btnBanHangActionPerformed
 
     private void btnHoaDonMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnHoaDonMouseClicked
@@ -380,7 +395,7 @@ public class Main extends javax.swing.JFrame {
     private void btnHoaDonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnHoaDonActionPerformed
         // TODO add your handling code here:
         tablepanel_from.setSelectedComponent(form_HoaDon);
-        
+
     }//GEN-LAST:event_btnHoaDonActionPerformed
 
     private void btnVocherMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnVocherMouseClicked
@@ -390,7 +405,7 @@ public class Main extends javax.swing.JFrame {
     private void btnVocherActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnVocherActionPerformed
         // TODO add your handling code here:
         tablepanel_from.setSelectedComponent(form_KhuyenMai);
-        
+
     }//GEN-LAST:event_btnVocherActionPerformed
 
     private void btnKhachHangMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnKhachHangMouseClicked
@@ -434,7 +449,7 @@ public class Main extends javax.swing.JFrame {
 
     private void btbLoaiActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btbLoaiActionPerformed
         // TODO add your handling code here:
-         tablepanel_from.setSelectedComponent(form_loai);
+        tablepanel_from.setSelectedComponent(form_loai);
     }//GEN-LAST:event_btbLoaiActionPerformed
 
     /**

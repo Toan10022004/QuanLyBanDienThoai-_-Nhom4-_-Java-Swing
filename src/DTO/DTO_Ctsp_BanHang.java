@@ -22,15 +22,13 @@ import lombok.ToString;
 @Getter
 @Setter
 @ToString
-public class DTO_Ctsp {
+public class DTO_Ctsp_BanHang {
 
     private int idCtsp;
     private String MaSP;
     private String mauSac;
     private int soLuongTon;
-    private String moTa;
     private BigDecimal giaBan;
-    private String trangThai;
-    private Date ngayTao;
-    private Date ngaySua;
+    private String moTa;
+
 }

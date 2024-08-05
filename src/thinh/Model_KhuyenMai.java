@@ -8,7 +8,7 @@ package thinh;
  *
  * @author thinh
  */
-public class KhuyenMai {
+public class Model_KhuyenMai {
     private String MaKM;
     private String TenKM;
     private String DieuKien;
@@ -64,7 +64,7 @@ public class KhuyenMai {
         this.NgayKT = NgayKT;
     }
 
-    public KhuyenMai(String MaKM, String TenKM, String DieuKien, String PhanTramKM, String NgayBD, String NgayKT) {
+    public Model_KhuyenMai(String MaKM, String TenKM, String DieuKien, String PhanTramKM, String NgayBD, String NgayKT) {
         this.MaKM = MaKM;
         this.TenKM = TenKM;
         this.DieuKien = DieuKien;
@@ -73,7 +73,7 @@ public class KhuyenMai {
         this.NgayKT = NgayKT;
     }
 
-    public KhuyenMai() {
+    public Model_KhuyenMai() {
     }
     public Object[] toRowTable() {
     return new Object[]{this.MaKM, this.TenKM, this.DieuKien, this.PhanTramKM, this.NgayBD, this.NgayKT};

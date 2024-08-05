@@ -18,8 +18,8 @@ import javax.swing.JOptionPane;
  */
 public class KhuyenMaiRe {
     ConnectDao cdao = new ConnectDao();
-    public ArrayList<KhuyenMai> getAllKhuyenMai() throws SQLException{
-        ArrayList<KhuyenMai> lsKhuyenMai = new ArrayList<>();
+    public ArrayList<Model_KhuyenMai> getAllKhuyenMai() throws SQLException{
+        ArrayList<Model_KhuyenMai> lsKhuyenMai = new ArrayList<>();
         Connection cn = cdao.getConnectDAO();
         String sql = "select MaKM, TenKM, DieuKienKM, PhanTramKM, NgayBD, NgayKT from khuyenmai";
         
@@ -27,7 +27,7 @@ public class KhuyenMaiRe {
             Statement stm = cn.createStatement();
             ResultSet rs = stm.executeQuery(sql);
             while (rs.next()) {
-                KhuyenMai km = new KhuyenMai();
+                Model_KhuyenMai km = new Model_KhuyenMai();
                 km.setMaKM(rs.getString("MaKM"));
                 km.setTenKM(rs.getString("TenKM"));
                 km.setDieuKien(rs.getString("DieuKienKM"));
@@ -42,7 +42,7 @@ public class KhuyenMaiRe {
         return lsKhuyenMai;
                 
     }
-     public boolean addVoucher(KhuyenMai newKhuyenMai) {
+     public boolean addVoucher(Model_KhuyenMai newKhuyenMai) {
     String sql = "INSERT INTO khuyenmai (MaKM, TenKM, DieuKienKM, PhanTramKM, NgayBD, NgayKT) VALUES (?, ?, ?, ?, ?, ?)";
     try (Connection cn = cdao.getConnectDAO()) {
         PreparedStatement sttm = cn.prepareStatement(sql);
@@ -65,7 +65,7 @@ public class KhuyenMaiRe {
         }
         return false;
     }
-    public void XoaVoucher(KhuyenMai newKhuyenMai) {
+    public void XoaVoucher(Model_KhuyenMai newKhuyenMai) {
     String sql = "DELETE FROM khuyenmai WHERE MaKM = ?";
 
     try (Connection cn = cdao.getConnectDAO()) {
@@ -83,7 +83,7 @@ public class KhuyenMaiRe {
         JOptionPane.showMessageDialog(null, "Error: " + e.getMessage());
     }
 }
-    public boolean updateVoucher(KhuyenMai km) {
+    public boolean updateVoucher(Model_KhuyenMai km) {
     String sql = "UPDATE khuyenmai SET TenKM = ?, DieuKien = ?, PhanTramKM = ?, NgayBD = ?, NgayKT = ? WHERE MaKM = ?";
     try (Connection cn = cdao.getConnectDAO();
          PreparedStatement sttm = cn.prepareStatement(sql)) {

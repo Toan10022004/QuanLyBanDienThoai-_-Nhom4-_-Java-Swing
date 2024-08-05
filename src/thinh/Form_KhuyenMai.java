@@ -20,7 +20,7 @@ import javax.swing.table.DefaultTableModel;
  */
 public class Form_KhuyenMai extends javax.swing.JPanel {
 
-    ArrayList<KhuyenMai> listView = new ArrayList<>();
+    ArrayList<Model_KhuyenMai> listView = new ArrayList<>();
     DefaultTableModel model;
     KhuyenMaiRe kms = new KhuyenMaiRe();
     private String MaKM;
@@ -49,13 +49,13 @@ public class Form_KhuyenMai extends javax.swing.JPanel {
     public void filltoTable() {
         model = (DefaultTableModel) tblKhuyenMai.getModel();
         model.setRowCount(0);
-        for (KhuyenMai khuyenmai : listView) {
+        for (Model_KhuyenMai khuyenmai : listView) {
             model.addRow(khuyenmai.toRowTable());
         }
     }
 
     public void fillTableToForm(int index) {
-        KhuyenMai khuyenMai = listView.get(index);
+        Model_KhuyenMai khuyenMai = listView.get(index);
         txtMa.setText(khuyenMai.getMaKM());
         txtTen.setText(khuyenMai.getTenKM());
         txtDK.setText(khuyenMai.getDieuKien());
@@ -289,7 +289,7 @@ public class Form_KhuyenMai extends javax.swing.JPanel {
     private void btnXoaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnXoaActionPerformed
         int selectedIndex = tblKhuyenMai.getSelectedRow();
         if (selectedIndex >= 0 && selectedIndex < listView.size()) {
-            KhuyenMai selectedKM = listView.get(selectedIndex);
+            Model_KhuyenMai selectedKM = listView.get(selectedIndex);
             // Xóa khỏi cơ sở dữ liệu
             kms.XoaVoucher(selectedKM);
             // Xóa khỏi danh sách
@@ -305,9 +305,9 @@ public class Form_KhuyenMai extends javax.swing.JPanel {
 
     private void btnSearchActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSearchActionPerformed
         String searchText = txtSearch.getText().trim().toLowerCase();
-        ArrayList<KhuyenMai> filteredList = new ArrayList<>();
+        ArrayList<Model_KhuyenMai> filteredList = new ArrayList<>();
 
-        for (KhuyenMai km : listView) {
+        for (Model_KhuyenMai km : listView) {
             if (km.getMaKM().toLowerCase().contains(searchText)
                 || km.getTenKM().toLowerCase().contains(searchText)
                 || km.getDieuKien().toLowerCase().contains(searchText)
@@ -319,7 +319,7 @@ public class Form_KhuyenMai extends javax.swing.JPanel {
         }
 
         model.setRowCount(0);
-        for (KhuyenMai km : filteredList) {
+        for (Model_KhuyenMai km : filteredList) {
             model.addRow(km.toRowTable());
         }
     }//GEN-LAST:event_btnSearchActionPerformed
@@ -363,7 +363,7 @@ public class Form_KhuyenMai extends javax.swing.JPanel {
                 return;
             }
 
-            KhuyenMai selectedKM = listView.get(selectedIndex);
+            Model_KhuyenMai selectedKM = listView.get(selectedIndex);
 
             selectedKM.setTenKM(tenKM);
             selectedKM.setDieuKien(dieuKien);
@@ -420,7 +420,7 @@ public class Form_KhuyenMai extends javax.swing.JPanel {
         }
 
         // Tạo một đối tượng KhuyenMai mới
-        KhuyenMai newKM = new KhuyenMai(maKM, tenKM, dieuKien, phanTramKM, ngayBD, ngayKT);
+        Model_KhuyenMai newKM = new Model_KhuyenMai(maKM, tenKM, dieuKien, phanTramKM, ngayBD, ngayKT);
         // Thêm vào danh sách
         listView.add(newKM);
         // Thêm vào cơ sở dữ liệu

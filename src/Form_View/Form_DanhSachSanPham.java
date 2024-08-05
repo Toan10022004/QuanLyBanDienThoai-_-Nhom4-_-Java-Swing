@@ -719,7 +719,7 @@ public class Form_DanhSachSanPham extends javax.swing.JPanel {
                 System.out.println("++++++++++++++++++++++++++++++++++++++++++");
             }
         }
-        
+
     }//GEN-LAST:event_tblDanhSachSanPhamMouseClicked
 
     private void txtTimKiemDanhSachSanPhamKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtTimKiemDanhSachSanPhamKeyReleased

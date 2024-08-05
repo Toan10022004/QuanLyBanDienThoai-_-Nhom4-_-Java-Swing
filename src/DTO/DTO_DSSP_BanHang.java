@@ -5,9 +5,9 @@
 package DTO;
 
 import Model.*;
-import java.math.BigDecimal;
 import java.util.Date;
 import lombok.AllArgsConstructor;
+import lombok.Data;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -22,15 +22,14 @@ import lombok.ToString;
 @Getter
 @Setter
 @ToString
-public class DTO_Ctsp {
+public class DTO_DSSP_BanHang {
 
-    private int idCtsp;
-    private String MaSP;
-    private String mauSac;
-    private int soLuongTon;
-    private String moTa;
-    private BigDecimal giaBan;
-    private String trangThai;
-    private Date ngayTao;
-    private Date ngaySua;
+    private int idSanPham;
+    private String anhSanPham;
+
+    private String maSanPham;
+    private String tenSanPham;
+    private String tenLoai;
+    private String tenHang;
+//    private String moTa;
 }

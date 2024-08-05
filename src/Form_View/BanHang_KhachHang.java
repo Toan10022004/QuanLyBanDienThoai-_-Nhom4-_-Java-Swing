@@ -31,11 +31,12 @@ public class BanHang_KhachHang extends javax.swing.JFrame {
      * Creates new form BanHang_KhachHang
      */
     public BanHang_KhachHang() {
-        setLocationRelativeTo(this);
+        initComponents();
+        setLocationRelativeTo(null);
         //JFrame.HIDE_ON_CLOSE  //sẽ bị ẩn nhưng vẫn tồn tại, và chương trình sẽ tiếp tục chạy.
         this.setDefaultCloseOperation(Form_ChiTietSanPham.HIDE_ON_CLOSE);
         repositories_KhachHang = new Repositories_KhachHang();
-        initComponents();
+        
         fillTable(R_KH.getAll());
         resetForm();
 
@@ -166,7 +167,7 @@ public class BanHang_KhachHang extends javax.swing.JFrame {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
-        panel_Custom1.setBackground(new java.awt.Color(255, 255, 255));
+        panel_Custom1.setBackground(new java.awt.Color(204, 204, 255));
 
         jLabel6.setFont(new java.awt.Font("Segoe UI", 0, 24)); // NOI18N
         jLabel6.setForeground(new java.awt.Color(255, 51, 51));
