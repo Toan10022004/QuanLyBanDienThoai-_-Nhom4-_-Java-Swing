@@ -22,14 +22,12 @@ import lombok.ToString;
 @Getter
 @Setter
 @ToString
-public class DTO_GioHang {
+public class DTO_GioHangcheckGiaBan {
     private int maHDCT;
     private int maHD;
-    private String tenSP;
-    private String tenHang;
-    private String tenLoaiSP;
-    private String mauSac;
+    private int maSP;
     private int soLuong;
     private BigDecimal giaBan;
+    private BigDecimal thanhTien;
     
 }

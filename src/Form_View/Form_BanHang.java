@@ -8,13 +8,16 @@ import DTO.DTO_Ctsp_BanHang;
 import DTO.DTO_DSSP_BanHang;
 import DTO.DTO_DanhSachSanPham;
 import DTO.DTO_GioHang;
+import DTO.DTO_GioHangcheckGiaBan;
 import DTO.DTO_KhachHang;
+//import Main.ButtonColumn;
 import Main.DataHolder;
 import Model.MD_Hang_CN;
 import Model.MD_HoaDon_CN;
 import Model.MD_Vocher;
 import Service.SV_BanHang;
 import hung.Model_khachhang;
+import java.awt.Button;
 import java.awt.Color;
 import java.awt.Component;
 import java.awt.Image;
@@ -37,6 +40,25 @@ import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableModel;
 import javax.swing.table.TableRowSorter;
 import thinh.Model_KhuyenMai;
+import java.awt.Component;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import javax.swing.JButton;
+import javax.swing.JTable;
+import javax.swing.table.TableCellRenderer;
+import javax.swing.table.TableCellEditor;
+import javax.swing.AbstractCellEditor;
+import javax.swing.JOptionPane;
+import javax.swing.table.DefaultTableModel;
+import javax.swing.*;
+import javax.swing.border.Border;
+import javax.swing.border.LineBorder;
+import javax.swing.table.*;
+import java.awt.*;
+import java.awt.event.*;
+import javax.swing.event.TableModelEvent;
+import javax.swing.event.TableModelListener;
+import javax.swing.table.DefaultTableModel;
 
 /**
  *
@@ -100,6 +122,25 @@ public class Form_BanHang extends javax.swing.JPanel {
                 txtPhanTramVocher.setText(v.getPhanTramKM());
             }
         }
+        //Sự kiện khi ở tbl thay đổi data qua edit trực tiếp trên table thì sự kiện này sẽ thực hiện chạy
+        DefaultTableModel model = (DefaultTableModel) tblGioHang.getModel();
+        model.addTableModelListener(new TableModelListener() {
+            @Override
+            public void tableChanged(TableModelEvent e) {
+                if (e.getType() == TableModelEvent.UPDATE) {
+                    int row = e.getFirstRow();
+                    int column = e.getColumn();
+                    if (column == 6) { // Cột "Số lượng"
+                        int maHDCT = (Integer) model.getValueAt(row, 0);// mã hóa đươn chi tiết
+                        int newQuantity = Integer.parseInt(model.getValueAt(row, column).toString());//số lượng
+                        System.out.println("Updated Số lượng for Mã HDCT " + maHDCT + ": " + newQuantity);
+                        svBanHang.updateslGioHang(newQuantity, maHDCT);
+                        dtoGioHang = svBanHang.selectAllGioHang(maHD_toanCuc);
+                        filltableGioHang(dtoGioHang);
+                    }
+                }
+            }
+        });
     }
 
     /**
@@ -128,16 +169,18 @@ public class Form_BanHang extends javax.swing.JPanel {
     }
 
     public void initTableGioHang() {
-        DefaultTableModel model = new DefaultTableModel(new Object[]{"Mã HD", "Tên Sản Phẩm", "Hãng", "Loại", "Màu Sắc", "Số lượng", "Giá Bán", ""}, 0) {
+        DefaultTableModel model = new DefaultTableModel(new Object[]{"Mã HDCT", "Mã HD", "Tên Sản Phẩm", "Hãng", "Loại", "Màu Sắc", "Số lượng", "Giá Bán", ""}, 0) {
             @Override
             public boolean isCellEditable(int row, int column) {
                 // Chỉ cho phép chỉnh sửa cột thứ 6 (cột "Số lượng")
-                return column == 5;
+                return column == 6;
             }
         };
 
         tblGioHang.setModel(model);
         tblGioHang.getColumnModel().getColumn(0).setPreferredWidth(40); // Cột ID
+//        tblGioHang.getColumnModel().getColumn(8).setCellRenderer(new ButtonRenderer());
+//        tblGioHang.getColumnModel().getColumn(8).setCellEditor(new ButtonEditor(tblGioHang));
     }
 
     public void initCboVocher() {
@@ -226,25 +269,138 @@ public class Form_BanHang extends javax.swing.JPanel {
         tblModel = (DefaultTableModel) tblGioHang.getModel();
         tblModel.setRowCount(0);
         for (DTO_GioHang gh : lgh) {
-            Object[] row = new Object[8];
-            row[0] = gh.getMaHD();
-            row[1] = gh.getTenSP();
-            row[2] = gh.getTenHang();
-            row[3] = gh.getTenLoaiSP();
-            row[4] = gh.getMauSac();
-            row[5] = gh.getSoLuong();
-            row[6] = gh.getGiaBan();
-            row[7] = "Xóa";
+            Object[] row = new Object[9];
+            row[0] = gh.getMaHDCT();
+            row[1] = gh.getMaHD();
+            row[2] = gh.getTenSP();
+            row[3] = gh.getTenHang();
+            row[4] = gh.getTenLoaiSP();
+            row[5] = gh.getMauSac();
+            row[6] = gh.getSoLuong();
+            row[7] = gh.getGiaBan();
+            row[8] = "Xóa"; // Gán giá trị "Xóa" cho cột 8
             tblModel.addRow(row);
         }
-    }
-//    public boolean deleteGioHang(){
-//        boolean check = false;
-//        if(check == true){
-//            return true;
-//        }
-//        return false;
+//        tblGioHang.getColumnModel().getColumn(8).setCellRenderer(new ButtonRenderer());
+//        tblGioHang.getColumnModel().getColumn(8).setCellEditor(new ButtonEditor(tblGioHang));
+        // Add the button column only once
+//    if (tblGioHang.getColumnModel().getColumnCount() == 9) {
+//        Action delete = new AbstractAction() {
+//            @Override
+//            public void actionPerformed(ActionEvent e) {
+//                JTable table = (JTable) e.getSource();
+//                int modelRow = Integer.valueOf(e.getActionCommand());
+//                Object value = tblGioHang.getModel().getValueAt(modelRow, 0); // Lấy giá trị của row[0]
+//                System.out.println("================ data cột khi chọn xóa row[0]: " + value); // In ra giá trị của row[0]
+//            }
+//        };
+//
+//        ButtonColumn buttonColumn = new ButtonColumn(tblGioHang, delete, 8);
+//        buttonColumn.setMnemonic(KeyEvent.VK_D);
 //    }
+    }
+
+    class ButtonColumn extends AbstractCellEditor
+            implements TableCellRenderer, TableCellEditor, ActionListener {
+
+        private JTable table;
+        private Action action;
+        private int mnemonic;
+        private Border originalBorder;
+        private Border focusBorder;
+
+        private JButton renderButton;
+        private JButton editButton;
+        private Object editorValue;
+        private boolean isButtonColumnEditor;
+
+        public ButtonColumn(JTable table, Action action, int column) {
+            this.table = table;
+            this.action = action;
+
+            renderButton = new JButton();
+            editButton = new JButton();
+            editButton.setFocusPainted(false);
+            editButton.addActionListener(this);
+            originalBorder = editButton.getBorder();
+            setFocusBorder(new LineBorder(Color.BLUE));
+
+            TableColumnModel columnModel = table.getColumnModel();
+            columnModel.getColumn(column).setCellRenderer(this);
+            columnModel.getColumn(column).setCellEditor(this);
+            table.addMouseListener(new MouseAdapter() {
+                public void mousePressed(MouseEvent e) {
+                    if (table.isEditing()
+                            && table.getCellEditor() == ButtonColumn.this) {
+                        isButtonColumnEditor = true;
+                    }
+                }
+
+                public void mouseReleased(MouseEvent e) {
+                    if (isButtonColumnEditor
+                            && table.getCellEditor() == ButtonColumn.this) {
+                        isButtonColumnEditor = false;
+                    }
+                }
+            });
+        }
+
+        public void setMnemonic(int mnemonic) {
+            this.mnemonic = mnemonic;
+            renderButton.setMnemonic(mnemonic);
+            editButton.setMnemonic(mnemonic);
+        }
+
+        public Border getFocusBorder() {
+            return focusBorder;
+        }
+
+        public void setFocusBorder(Border focusBorder) {
+            this.focusBorder = focusBorder;
+            editButton.setBorder(focusBorder);
+        }
+
+        public int getMnemonic() {
+            return mnemonic;
+        }
+
+        public Component getTableCellRendererComponent(
+                JTable table, Object value, boolean isSelected, boolean hasFocus, int row, int column) {
+            if (isSelected) {
+                renderButton.setForeground(table.getSelectionForeground());
+                renderButton.setBackground(table.getSelectionBackground());
+            } else {
+                renderButton.setForeground(table.getForeground());
+                renderButton.setBackground(UIManager.getColor("Button.background"));
+            }
+
+            renderButton.setText((value == null) ? "" : value.toString());
+            return renderButton;
+        }
+
+        public Component getTableCellEditorComponent(
+                JTable table, Object value, boolean isSelected, int row, int column) {
+            editorValue = value;
+            editButton.setText((value == null) ? "" : value.toString());
+            return editButton;
+        }
+
+        public Object getCellEditorValue() {
+            return editorValue;
+        }
+
+        public void actionPerformed(ActionEvent e) {
+            int row = table.convertRowIndexToModel(table.getEditingRow());
+            fireEditingStopped();
+
+            ActionEvent event = new ActionEvent(table, ActionEvent.ACTION_PERFORMED, "" + row);
+            action.actionPerformed(event);
+        }
+
+        protected void fireEditingStopped() {
+            super.fireEditingStopped();
+        }
+    }
 
     public BigDecimal billTinhTien_tongTienhang() {
         DefaultTableModel model = (DefaultTableModel) tblGioHang.getModel();
@@ -252,8 +408,8 @@ public class Form_BanHang extends javax.swing.JPanel {
 
         for (int i = 0; i < model.getRowCount(); i++) {
             // Lấy giá trị của cột "Số lượng" và "Giá bán"
-            String soLuongStr = model.getValueAt(i, 5).toString();
-            String giaBanStr = model.getValueAt(i, 6).toString();
+            String soLuongStr = model.getValueAt(i, 6).toString();
+            String giaBanStr = model.getValueAt(i, 7).toString();
 
             try {
                 // Chuyển đổi các giá trị này về kiểu BigDecimal
@@ -290,7 +446,7 @@ public class Form_BanHang extends javax.swing.JPanel {
         String formattedGiamGia = vndFormat.format(giamGiaKhuyeMai);
         txtGiamGiaKhuyenMai.setText(formattedGiamGia);
 
-         tongThanhToan = total.subtract(giamGiaKhuyeMai);
+        tongThanhToan = total.subtract(giamGiaKhuyeMai);
 
         // Hiển thị kết quả ra console
         System.out.println("Tổng thanh toán: " + tongThanhToan);
@@ -355,6 +511,7 @@ public class Form_BanHang extends javax.swing.JPanel {
         txtGiamGiaKhuyenMai = new javax.swing.JLabel();
         txtTongThanhToan = new javax.swing.JLabel();
         btnThanhToan = new javax.swing.JButton();
+        jLabel6 = new javax.swing.JLabel();
 
         jPanel1.setBackground(new java.awt.Color(243, 243, 243));
 
@@ -631,11 +788,16 @@ public class Form_BanHang extends javax.swing.JPanel {
             }
         ) {
             boolean[] canEdit = new boolean [] {
-                false, false, false, false, false, false, false, false
+                false, false, false, false, false, false, true, false
             };
 
             public boolean isCellEditable(int rowIndex, int columnIndex) {
                 return canEdit [columnIndex];
+            }
+        });
+        tblGioHang.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                tblGioHangMouseClicked(evt);
             }
         });
         jScrollPane3.setViewportView(tblGioHang);
@@ -802,6 +964,8 @@ public class Form_BanHang extends javax.swing.JPanel {
             }
         });
 
+        jLabel6.setText("Nhấn 2 Click liên tiếp để xóa sản phẩm khỏi giỏ hàng !");
+
         javax.swing.GroupLayout panel_Custom5Layout = new javax.swing.GroupLayout(panel_Custom5);
         panel_Custom5.setLayout(panel_Custom5Layout);
         panel_Custom5Layout.setHorizontalGroup(
@@ -814,7 +978,8 @@ public class Form_BanHang extends javax.swing.JPanel {
                     .addComponent(panel_Custom2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addGroup(panel_Custom5Layout.createSequentialGroup()
                         .addComponent(jLabel25)
-                        .addGap(0, 0, Short.MAX_VALUE))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(jLabel6))
                     .addComponent(btnThanhToan, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addContainerGap())
         );
@@ -822,7 +987,9 @@ public class Form_BanHang extends javax.swing.JPanel {
             panel_Custom5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(panel_Custom5Layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jLabel25)
+                .addGroup(panel_Custom5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel25)
+                    .addComponent(jLabel6))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -885,12 +1052,80 @@ public class Form_BanHang extends javax.swing.JPanel {
         //Đang tạo 
         //Đang Trả Góp 
         //Hoàn tất
-                NumberFormat vndFormat = NumberFormat.getInstance(new Locale("vi", "VN"));
-        vndFormat.setMinimumFractionDigits(3);
-        vndFormat.setMaximumFractionDigits(3);
-        String formattedTongThanhToan = vndFormat.format(tongThanhToan);
-        System.out.println("================================================");
-        System.out.println("Tổng thanh toán biến gán toàn cục actine thanh toán : "+formattedTongThanhToan);
+        if (dtoGioHang == null || dtoGioHang.isEmpty()) {
+            JOptionPane.showMessageDialog(this, "Giỏ hàng trống. Vui thêm sản phẩm vào đơn hàng mới được thanh toán!", "Thông Báo Hệ Thống", JOptionPane.ERROR_MESSAGE);
+        } else if (dtoGioHang != null || !dtoGioHang.isEmpty()) {
+            int response = JOptionPane.showConfirmDialog(this, "Xác nhận thanh toán ?", "Thông Báo Hệ Thống", 0, 3, null);
+            if (response == JOptionPane.YES_OPTION) {
+
+                for (DTO_GioHang gh : dtoGioHang) {
+
+                    // Chuyển đổi số lượng thành BigDecimal
+                    BigDecimal soLuong = new BigDecimal(gh.getSoLuong());
+
+                    // Lấy giá bán từ gh và đảm bảo nó không có ký tự không hợp lệ
+                    BigDecimal giaBan = gh.getGiaBan();
+
+                    // Nhân số lượng với giá bán để tính thành tiền
+                    BigDecimal thanhTien = soLuong.multiply(giaBan);
+                    // In giá trị thành tiền để kiểm tra
+                    System.out.println("Thành tiến thanh toán: " + thanhTien + " của HDCT: " + gh.getMaHDCT());
+
+                    // Cập nhật HDCT
+                    svBanHang.updateHDCT(gh.getSoLuong(), gh.getGiaBan(), thanhTien, gh.getMaHDCT());
+
+                    // Chuyển đổi tổng thanh toán từ TextField thành BigDecimal
+                    String tongThanhToanString = txtTongThanhToan.getText().replace(',', '.');
+
+                    // Loại bỏ các ký tự không phải số hoặc dấu chấm
+                    tongThanhToanString = tongThanhToanString.replaceAll("[^\\d.]", "");
+
+                    // Kiểm tra và loại bỏ các dấu chấm thừa
+                    int firstDotIndex = tongThanhToanString.indexOf('.');
+                    int lastDotIndex = tongThanhToanString.lastIndexOf('.');
+                    if (firstDotIndex != lastDotIndex) {
+                        tongThanhToanString = tongThanhToanString.substring(0, lastDotIndex).replaceAll("\\.", "") + tongThanhToanString.substring(lastDotIndex);
+                    }
+
+                    // Chuyển đổi chuỗi thành BigDecimal
+                    BigDecimal tongTien = new BigDecimal(tongThanhToanString);
+                    System.out.println("=================Tổng tiền: " + tongTien);
+                    System.out.println("===================Mã HD ToanCuc: " + maHD_toanCuc);
+
+                    // Cập nhật HD (bạn có thể bỏ ghi chú để gọi phương thức này nếu cần)
+                    for (MD_Vocher v : listvc) {
+                        if (v.getTenKM().equals(cboVocher.getSelectedItem().toString())) {
+                            svBanHang.updateHD(tongTien, v.getIdKM(), maHD_toanCuc);
+                            dtoHoaDon = svBanHang.selectAllHoaDon();
+                        }
+                    }
+                }
+
+                filltableHoaDon(dtoHoaDon);
+                JOptionPane.showMessageDialog(this, "Thanh toán thành công");
+                FirstPdf pdf = new FirstPdf(maHD_toanCuc, "NVTest", Integer.parseInt(txtMaKH.getText()), txtTenKH.getText(), txtSDTKH.getText(), txtTongTienHang.getText(), txtGiamGiaKhuyenMai.getText(), txtTongThanhToan.getText());
+                pdf.run();
+
+                tblDonHang.clearSelection();
+                tblDanhSachSanPham.clearSelection();
+                idctsp_toanCuc = null;
+                idsp = null;
+                tblModel = (DefaultTableModel) tblChiTietSanPham.getModel();
+                tblModel.setRowCount(0);
+                tblModel = (DefaultTableModel) tblGioHang.getModel();
+                tblModel.setRowCount(0);
+                cboVocher.setSelectedIndex(0);
+                txtMaKH.setText("");
+                txtTenKH.setText("");
+                txtSDTKH.setText("");
+                txtEmail.setText("");
+                txtDiaChiKH.setText("");
+
+            } else if (response == JOptionPane.NO_OPTION) {
+
+            }
+        }
+
     }//GEN-LAST:event_btnThanhToanActionPerformed
 
     private void jButton4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton4ActionPerformed
@@ -1057,6 +1292,7 @@ public class Form_BanHang extends javax.swing.JPanel {
                 txtPhanTramVocher.setText(v.getPhanTramKM());
             }
         }
+        System.out.println("Data vocher đã chọn " + cboVocher.getSelectedItem());
         billTinhTien_tongTienhang();
     }//GEN-LAST:event_cboVocherActionPerformed
 
@@ -1066,6 +1302,23 @@ public class Form_BanHang extends javax.swing.JPanel {
         idctsp_toanCuc = dtoCTSP.get(index).getIdCtsp();
         giaCTSP = dtoCTSP.get(index).getGiaBan();
     }//GEN-LAST:event_tblChiTietSanPhamMouseClicked
+
+    private void tblGioHangMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tblGioHangMouseClicked
+        // TODO add your handling code here:
+        if (evt.getClickCount() == 2) {
+            int response = JOptionPane.showConfirmDialog(this, "Bạn chắc chắn muốn xóa sản phẩm này ra khỏi giỏ hàng không ?", "Thông Báo Hệ Thống", 0, 3, null);
+            if (response == JOptionPane.YES_OPTION) {
+                int index = tblGioHang.getSelectedRow();
+                Integer idDHCT = dtoGioHang.get(index).getMaHDCT();
+                System.out.println("Mã Hóa đơn chi tiết xóa == " + idDHCT);
+                svBanHang.deleteSP_GioHang(idDHCT);
+                dtoGioHang = svBanHang.selectAllGioHang(maHD_toanCuc);
+                filltableGioHang(dtoGioHang);
+            } else if (response == JOptionPane.NO_OPTION) {
+
+            }
+        }
+    }//GEN-LAST:event_tblGioHangMouseClicked
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
@@ -1091,6 +1344,7 @@ public class Form_BanHang extends javax.swing.JPanel {
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
+    private javax.swing.JLabel jLabel6;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;

@@ -9,7 +9,9 @@ import DTO.DTO_Ctsp;
 import DTO.DTO_Ctsp_BanHang;
 import DTO.DTO_DSSP_BanHang;
 import DTO.DTO_GioHang;
+import DTO.DTO_GioHangcheckGiaBan;
 import DTO.DTO_KhachHang;
+import DTO.DTO_SanPham_pdf;
 import Model.MD_Hang_CN;
 import Model.MD_HoaDon_CN;
 import Model.MD_SanPham_CN;
@@ -116,7 +118,7 @@ public class SV_BanHang {
     }
 
     public List<DTO_GioHang> selectAllGioHang(Integer maHD) {
-        String sql = "SELECT HoaDon.MaHD, san_pham.ten_san_pham, hang.ten_Hang, loaisp.ten_LSP, ctsp.mau_sac, HoaDonChiTiet.SoLuong, ctsp.gia_ban\n"
+        String sql = "SELECT HoaDonChiTiet.MaHoaDonChiTiet, HoaDon.MaHD, san_pham.ten_san_pham, hang.ten_Hang, loaisp.ten_LSP, ctsp.mau_sac, HoaDonChiTiet.SoLuong, ctsp.gia_ban\n"
                 + "FROM HoaDon \n"
                 + "INNER JOIN HoaDonChiTiet ON HoaDon.MaHD = HoaDonChiTiet.MaHD\n"
                 + "INNER JOIN ctsp ON HoaDonChiTiet.IdSP = ctsp.id\n"
@@ -133,12 +135,39 @@ public class SV_BanHang {
             while (rs.next()) {
                 dto.add(new DTO_GioHang(
                         rs.getInt(1),
-                        rs.getString(2),
+                        rs.getInt(2),
                         rs.getString(3),
                         rs.getString(4),
                         rs.getString(5),
-                        rs.getInt(6),
-                        rs.getBigDecimal(7)
+                        rs.getString(6),
+                        rs.getInt(7),
+                        rs.getBigDecimal(8)
+                ));
+            }
+            return dto;
+        } catch (SQLException ex) {
+        }
+        return null;
+    }
+
+    public List<DTO_GioHangcheckGiaBan> selectAllGioHangcheckGiaKHiDoi(Integer maHD) {
+        String sql = "SELECT MaHoaDonChiTiet, MaHD, IdSP, SoLuong, DonGia, ThanhTien\n"
+                + "FROM   HoaDonChiTiet\n"
+                + "WHERE (MaHD = ?)";
+        List<DTO_GioHangcheckGiaBan> dto = new ArrayList<>();
+        try {
+            conn = cdao.getConnectDAO();
+            ps = conn.prepareStatement(sql);
+            ps.setInt(1, maHD);
+            rs = ps.executeQuery();
+            while (rs.next()) {
+                dto.add(new DTO_GioHangcheckGiaBan(
+                        rs.getInt(1),
+                        rs.getInt(2),
+                        rs.getInt(3),
+                        rs.getInt(4),
+                        rs.getBigDecimal(5),
+                        rs.getBigDecimal(6)
                 ));
             }
             return dto;
@@ -231,4 +260,91 @@ public class SV_BanHang {
         return null;
     }
 
+    public void updateHDCT(Integer soLuong, BigDecimal donGia, BigDecimal thanhTien, Integer maHDCT) {
+        String sql = "UPDATE HoaDonChiTiet\n"
+                + "SET       SoLuong = ?, DonGia = ?, ThanhTien = ?\n"
+                + "WHERE (MaHoaDonChiTiet = ?)";
+        try {
+            conn = cdao.getConnectDAO();
+            ps = conn.prepareStatement(sql);
+            ps.setInt(1, soLuong);
+            ps.setBigDecimal(2, donGia);
+            ps.setBigDecimal(3, thanhTien);
+            ps.setInt(4, maHDCT);
+
+            ps.executeUpdate();
+        } catch (Exception e) {
+        }
+    }
+
+    public void updateHD(BigDecimal tongTien, Integer idKM, Integer maHD) {
+        String sql = "UPDATE HoaDon\n"
+                + "SET       TongTien = ?, TrangThai = N'Hoàn tất', NgaySua = GETDATE(), idKM = ?\n"
+                + "WHERE (MaHD = ?)";
+        try {
+            conn = cdao.getConnectDAO();
+            ps = conn.prepareStatement(sql);
+            ps.setBigDecimal(1, tongTien);
+            ps.setInt(2, idKM);
+            ps.setInt(3, maHD);
+
+            ps.executeUpdate();
+        } catch (Exception e) {
+        }
+    }
+
+    public void deleteSP_GioHang(Integer idHDCT) {
+        String sql = "DELETE FROM HoaDonChiTiet\n"
+                + "WHERE (MaHoaDonChiTiet = ?)";
+        try {
+            conn = cdao.getConnectDAO();
+            ps = conn.prepareStatement(sql);
+            ps.setInt(1, idHDCT);
+
+            ps.executeUpdate();
+        } catch (Exception e) {
+        }
+    }
+
+    public void updateslGioHang(Integer soLuong, Integer idHDCT) {
+        String sql = "UPDATE HoaDonChiTiet\n"
+                + "SET       SoLuong = ?\n"
+                + "WHERE (MaHoaDonChiTiet = ?)";
+        try {
+            conn = cdao.getConnectDAO();
+            ps = conn.prepareStatement(sql);
+            ps.setInt(1, soLuong);
+            ps.setInt(2, idHDCT);
+
+            ps.executeUpdate();
+        } catch (Exception e) {
+        }
+    }
+
+    public List<DTO_SanPham_pdf> selectPrintfHoaDon(Integer idHD) {
+        String sql = "SELECT san_pham.ten_san_pham, ctsp.mau_sac, HoaDonChiTiet.SoLuong, HoaDonChiTiet.DonGia\n"
+                + "FROM   ctsp INNER JOIN\n"
+                + "             HoaDonChiTiet ON ctsp.id = HoaDonChiTiet.IdSP INNER JOIN\n"
+                + "             san_pham ON ctsp.id_san_pham = san_pham.id_san_pham\n"
+                + "WHERE (HoaDonChiTiet.MaHD = ?)";
+        List<DTO_SanPham_pdf> dto = new ArrayList<>();
+        try {
+            conn = cdao.getConnectDAO();
+            ps = conn.prepareStatement(sql);
+            ps.setInt(1, idHD);
+            rs = ps.executeQuery();
+            while (rs.next()) {
+                dto.add(new DTO_SanPham_pdf(
+                        rs.getString(1),
+                        rs.getString(2),
+                        rs.getInt(3),
+                        rs.getBigDecimal(4)
+                        
+                ));
+            }
+            return dto;
+        } catch (SQLException ex) {
+        }
+        return null;
+    }
 }
