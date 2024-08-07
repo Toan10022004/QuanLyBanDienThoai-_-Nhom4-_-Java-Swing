@@ -84,7 +84,7 @@ public class Form_XuatFile extends javax.swing.JFrame {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
-        panel_Custom1.setBackground(new java.awt.Color(255, 255, 255));
+        panel_Custom1.setBackground(new java.awt.Color(255, 153, 102));
 
         jLabel10.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
         jLabel10.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);

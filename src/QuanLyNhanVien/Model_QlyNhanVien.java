@@ -15,17 +15,21 @@ public class Model_QlyNhanVien {
     private boolean gioiTinh;
     private String DiaChi;
     private String quyenHan;
+    private String matKhau;
 
     public Model_QlyNhanVien() {
     }
 
-    public Model_QlyNhanVien(String MaNv, String TenNv, boolean gioiTinh, String DiaChi, String quyenHan) {
+    public Model_QlyNhanVien(String MaNv, String TenNv, boolean gioiTinh, String DiaChi, String quyenHan, String matKhau) {
         this.MaNv = MaNv;
         this.TenNv = TenNv;
         this.gioiTinh = gioiTinh;
         this.DiaChi = DiaChi;
         this.quyenHan = quyenHan;
+        this.matKhau = matKhau;
     }
+
+    
 
     public String getMaNv() {
         return MaNv;
@@ -67,6 +71,16 @@ public class Model_QlyNhanVien {
     public void setQuyenHan(String quyenHan) {
         this.quyenHan = quyenHan;
     }
+
+    public String getMatKhau() {
+        return matKhau;
+    }
+
+    public void setMatKhau(String matKhau) {
+        this.matKhau = matKhau;
+    }
+    
+    
     
     public Object[] toDataRow(){
         return new Object[]{
@@ -74,7 +88,8 @@ public class Model_QlyNhanVien {
         this.getMaNv(),
         this.isGioiTinh()?"Nam":"Nữ",
         this.getDiaChi(),
-        this.getQuyenHan()
+        this.getQuyenHan(),
+        this.getMatKhau()
     };
                 
     }

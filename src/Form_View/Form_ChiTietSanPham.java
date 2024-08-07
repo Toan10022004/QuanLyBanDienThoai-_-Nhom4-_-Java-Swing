@@ -205,7 +205,7 @@ public class Form_ChiTietSanPham extends javax.swing.JFrame {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
-        panel_Custom4.setBackground(new java.awt.Color(255, 255, 255));
+        panel_Custom4.setBackground(new java.awt.Color(255, 153, 102));
 
         panel_Custom6.setRoundBottomLeft(25);
         panel_Custom6.setRoundBottomRight(25);

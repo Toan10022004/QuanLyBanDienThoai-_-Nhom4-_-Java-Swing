@@ -39,7 +39,6 @@ import javax.swing.table.DefaultTableCellRenderer;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableModel;
 import javax.swing.table.TableRowSorter;
-import thinh.Model_KhuyenMai;
 import java.awt.Component;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -513,7 +512,7 @@ public class Form_BanHang extends javax.swing.JPanel {
         btnThanhToan = new javax.swing.JButton();
         jLabel6 = new javax.swing.JLabel();
 
-        jPanel1.setBackground(new java.awt.Color(243, 243, 243));
+        jPanel1.setBackground(new java.awt.Color(255, 153, 102));
 
         panel_Custom1.setBackground(new java.awt.Color(255, 255, 255));
         panel_Custom1.setRoundBottomLeft(20);

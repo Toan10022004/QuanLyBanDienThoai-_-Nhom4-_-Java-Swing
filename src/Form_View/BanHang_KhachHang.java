@@ -167,10 +167,9 @@ public class BanHang_KhachHang extends javax.swing.JFrame {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
-        panel_Custom1.setBackground(new java.awt.Color(204, 204, 255));
+        panel_Custom1.setBackground(new java.awt.Color(255, 153, 102));
 
-        jLabel6.setFont(new java.awt.Font("Segoe UI", 0, 24)); // NOI18N
-        jLabel6.setForeground(new java.awt.Color(255, 51, 51));
+        jLabel6.setFont(new java.awt.Font("Segoe UI", 1, 20)); // NOI18N
         jLabel6.setText("Quản Lý Khách hàng");
 
         jLabel1.setText("Mã");

@@ -133,7 +133,7 @@ public class Form_DanhSachSanPham extends javax.swing.JPanel {
         txtTimKiemDanhSachSanPham = new javax.swing.JTextField();
         jButton1 = new javax.swing.JButton();
 
-        setBackground(new java.awt.Color(204, 204, 255));
+        setBackground(new java.awt.Color(255, 153, 102));
 
         jpnImageSanPham.setPreferredSize(new java.awt.Dimension(412, 548));
 
