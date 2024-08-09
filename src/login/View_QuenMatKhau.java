@@ -76,7 +76,7 @@ public class View_QuenMatKhau extends javax.swing.JFrame {
     
     public void sendEmail(String to, String messageText) {
         final String username = "congvmph48302@fpt.edu.vn";
-        final String password = "e y c e g k z n s v r r a b y x";
+        final String password = "d h t l l f j a v k d n e w w x";
 
         Properties props = new Properties();
         
@@ -146,7 +146,7 @@ public class View_QuenMatKhau extends javax.swing.JFrame {
 
         jPanel2.setBackground(new java.awt.Color(0, 0, 0));
 
-        jLabel5.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Image/logo-FPT-Polytechnic- (3).png"))); // NOI18N
+        jLabel5.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Image/nenLogin.png"))); // NOI18N
         jLabel5.setText("jLabel5");
 
         jLabel6.setFont(new java.awt.Font("Segoe UI Black", 1, 14)); // NOI18N
@@ -288,7 +288,7 @@ public class View_QuenMatKhau extends javax.swing.JFrame {
                     .addComponent(txt_NhapCapCha, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(txt_CapCha, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
-                .addComponent(btn_LayMatKhau, javax.swing.GroupLayout.DEFAULT_SIZE, 47, Short.MAX_VALUE)
+                .addComponent(btn_LayMatKhau, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addGap(18, 18, 18)
                 .addGroup(leftLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jButton1)

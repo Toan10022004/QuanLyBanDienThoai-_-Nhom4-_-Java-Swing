@@ -61,7 +61,7 @@ public class View_Login extends javax.swing.JFrame {
 
         jPanel2.setBackground(new java.awt.Color(0, 0, 0));
 
-        jLabel5.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Image/logo-FPT-Polytechnic- (3).png"))); // NOI18N
+        jLabel5.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Image/nenLogin.png"))); // NOI18N
         jLabel5.setText("jLabel5");
 
         jLabel6.setFont(new java.awt.Font("Segoe UI Black", 1, 14)); // NOI18N
@@ -112,7 +112,7 @@ public class View_Login extends javax.swing.JFrame {
                 .addComponent(jLabel8)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jLabel9)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 313, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(jLabel5))
         );
 
@@ -126,15 +126,31 @@ public class View_Login extends javax.swing.JFrame {
 
         jLabel3.setText("Mật khẩu");
 
+        txt_tenDN.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                txt_tenDNMouseEntered(evt);
+            }
+        });
         txt_tenDN.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 txt_tenDNActionPerformed(evt);
             }
         });
 
+        txt_MK.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                txt_MKMouseEntered(evt);
+            }
+        });
+
         btn_Login.setBackground(new java.awt.Color(0, 102, 102));
         btn_Login.setForeground(new java.awt.Color(255, 255, 255));
         btn_Login.setText("Login");
+        btn_Login.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                btn_LoginMouseEntered(evt);
+            }
+        });
         btn_Login.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btn_LoginActionPerformed(evt);
@@ -282,8 +298,8 @@ public class View_Login extends javax.swing.JFrame {
                 if (index == 1 && matKhau.equalsIgnoreCase(pass)&& tenDN.equalsIgnoreCase(maNV)) {
                     System.out.println("Đăng nhập thành công");
                     new Menu().setVisible(true);
-                    JOptionPane.showMessageDialog(this, "Đăng nhập thành công");
                     this.dispose();
+                    JOptionPane.showMessageDialog(this, "Đăng nhập thành công");
                 } else {
                     JOptionPane.showMessageDialog(this, "Tên đăng nhập hoặc mật khẩu không chính xác");
                 }
@@ -303,6 +319,20 @@ public class View_Login extends javax.swing.JFrame {
         quenMK.setLocationRelativeTo(null);
         this.dispose();
     }//GEN-LAST:event_btn_QuenMatKhauActionPerformed
+
+    private void txt_MKMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_txt_MKMouseEntered
+        // TODO add your handling code here:
+        
+        
+    }//GEN-LAST:event_txt_MKMouseEntered
+
+    private void txt_tenDNMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_txt_tenDNMouseEntered
+        // TODO add your handling code here:
+    }//GEN-LAST:event_txt_tenDNMouseEntered
+
+    private void btn_LoginMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btn_LoginMouseEntered
+        // TODO add your handling code here:
+    }//GEN-LAST:event_btn_LoginMouseEntered
 
     /**
      * @param args the command line arguments

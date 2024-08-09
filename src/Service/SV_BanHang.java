@@ -15,6 +15,7 @@ import DTO.DTO_SanPham_pdf;
 import Model.MD_Hang_CN;
 import Model.MD_HoaDon_CN;
 import Model.MD_SanPham_CN;
+import Model.MD_TinhSL_CTSP_BanHang;
 import Model.MD_Vocher;
 import java.math.BigDecimal;
 import java.sql.Connection;
@@ -382,5 +383,63 @@ public class SV_BanHang {
 
         return resultList;
     }
-    
+
+    public List<MD_TinhSL_CTSP_BanHang> checktruSoLuongTon_sauBanHang(Integer idHD) {
+        String sql = "SELECT HoaDonChiTiet.IdSP, HoaDonChiTiet.SoLuong\n"
+                + "FROM   ctsp INNER JOIN\n"
+                + "             HoaDonChiTiet ON ctsp.id = HoaDonChiTiet.IdSP INNER JOIN\n"
+                + "             HoaDon ON HoaDonChiTiet.MaHD = HoaDon.MaHD\n"
+                + "WHERE (HoaDon.MaHD = ?)";
+        List<MD_TinhSL_CTSP_BanHang> dto = new ArrayList<>();
+        try {
+            conn = cdao.getConnectDAO();
+            ps = conn.prepareStatement(sql);
+            ps.setInt(1, idHD);
+            rs = ps.executeQuery();
+            while (rs.next()) {
+                dto.add(new MD_TinhSL_CTSP_BanHang(
+                        rs.getInt(1),
+                        rs.getInt(2)
+                ));
+            }
+            return dto;
+        } catch (SQLException ex) {
+        }
+        return null;
+    }
+
+    public List<MD_TinhSL_CTSP_BanHang> getidCTSP_SLTon() {
+        String sql = "SELECT id, so_luong_ton\n"
+                + "FROM   ctsp";
+        List<MD_TinhSL_CTSP_BanHang> dto = new ArrayList<>();
+        try {
+            conn = cdao.getConnectDAO();
+            ps = conn.prepareStatement(sql);
+            rs = ps.executeQuery();
+            while (rs.next()) {
+                dto.add(new MD_TinhSL_CTSP_BanHang(
+                        rs.getInt(1),
+                        rs.getInt(2)
+                ));
+            }
+            return dto;
+        } catch (SQLException ex) {
+        }
+        return null;
+    }
+
+    public void updateSlTonSauBanHang(Integer soLuong, Integer idctsp) {
+        String sql = "UPDATE ctsp\n"
+                + "SET       so_luong_ton = ?\n"
+                + "WHERE (id = ?)";
+        try {
+            conn = cdao.getConnectDAO();
+            ps = conn.prepareStatement(sql);
+            ps.setInt(1, soLuong);
+            ps.setInt(2, idctsp);
+
+            ps.executeUpdate();
+        } catch (Exception e) {
+        }
+    }
 }

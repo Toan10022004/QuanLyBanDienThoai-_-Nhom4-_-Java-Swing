@@ -2,6 +2,8 @@
 package Main;
 
 import Form_View.Form_BanHang;
+import Test.src.test.Test;
+import javax.swing.JOptionPane;
 
 /**
  *
@@ -378,13 +380,41 @@ public class Menu extends javax.swing.JFrame {
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
         // TODO add your handling code here:
-        tablepanel_from.setSelectedComponent(form_dssp);
+//        tablepanel_from.setSelectedComponent(form_dssp);
+int index = tablepanel_from.indexOfComponent(form_dssp);
+if (index != -1) {
+    tablepanel_from.remove(index);
+}
+
+// Tạo một instance mới của Form_DanhSachSanPham
+form_dssp = new Form_View.Form_DanhSachSanPham();
+
+// Thêm instance mới vào tabbed pane
+tablepanel_from.addTab("Danh Sách Sản Phẩm", form_dssp);
+
+// Đặt instance mới làm component được chọn
+tablepanel_from.setSelectedComponent(form_dssp);
+
 
     }//GEN-LAST:event_jButton1ActionPerformed
 
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
         // TODO add your handling code here:
-        tablepanel_from.setSelectedComponent(form_hang);
+//        tablepanel_from.setSelectedComponent(form_hang);
+int index = tablepanel_from.indexOfComponent(form_hang);
+if (index != -1) {
+    tablepanel_from.remove(index);
+}
+
+// Tạo một instance mới của Form_Hang
+form_hang = new Form_View.Form_Hang();
+
+// Thêm instance mới vào tabbed pane
+tablepanel_from.addTab("Hãng", form_hang);
+
+// Đặt instance mới làm component được chọn
+tablepanel_from.setSelectedComponent(form_hang);
+
 
     }//GEN-LAST:event_jButton2ActionPerformed
 
@@ -416,7 +446,25 @@ public class Menu extends javax.swing.JFrame {
 
     private void btnHoaDonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnHoaDonActionPerformed
         // TODO add your handling code here:
-        tablepanel_from.setSelectedComponent(from_HoaDon);
+//        tablepanel_from.setSelectedComponent(from_HoaDon);
+int index = tablepanel_from.indexOfComponent(from_HoaDon);
+if (index != -1) {
+    tablepanel_from.remove(index);
+}
+
+try {
+    // Tạo một instance mới của HoaDonF (hoặc tên form tương ứng)
+    from_HoaDon = new Form_View.HoaDonF();
+
+    // Thêm instance mới vào tabbed pane
+    tablepanel_from.addTab("Hóa Đơn", from_HoaDon);
+
+    // Đặt instance mới làm component được chọn
+    tablepanel_from.setSelectedComponent(from_HoaDon);
+} catch (Exception e) {
+    e.printStackTrace(); // Hoặc xử lý lỗi theo cách khác nếu cần thiết
+    JOptionPane.showMessageDialog(this, "Lỗi khi tải dữ liệu hóa đơn: " + e.getMessage(), "Lỗi", JOptionPane.ERROR_MESSAGE);
+}
 
     }//GEN-LAST:event_btnHoaDonActionPerformed
 
@@ -427,6 +475,19 @@ public class Menu extends javax.swing.JFrame {
     private void btnVocherActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnVocherActionPerformed
         // TODO add your handling code here:
         tablepanel_from.setSelectedComponent(form_KhuyenMai);
+//int index = tablepanel_from.indexOfComponent(form_KhuyenMai);
+//if (index != -1) {
+//    tablepanel_from.remove(index);
+//}
+//
+//try {
+//    form_KhuyenMai = new Form_View.KhuyenMaiF();
+//} catch (Exception e) {
+//    e.printStackTrace(); // Hoặc xử lý lỗi theo cách khác nếu cần thiết
+//    JOptionPane.showMessageDialog(this, "Lỗi khi tải dữ liệu khuyến mãi: " + e.getMessage(), "Lỗi", JOptionPane.ERROR_MESSAGE);
+//}
+
+
 
     }//GEN-LAST:event_btnVocherActionPerformed
 
@@ -436,7 +497,21 @@ public class Menu extends javax.swing.JFrame {
 
     private void btnKhachHangActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnKhachHangActionPerformed
         // TODO add your handling code here:
-        tablepanel_from.setSelectedComponent(form_KhachHang);
+//        tablepanel_from.setSelectedComponent(form_KhachHang);
+int index = tablepanel_from.indexOfComponent(form_KhachHang);
+if (index != -1) {
+    tablepanel_from.remove(index);
+}
+
+// Tạo một instance mới của Form_KhachHang
+form_KhachHang = new Form_View.Form_KhachHang();
+
+// Thêm instance mới vào tabbed pane
+tablepanel_from.addTab("Khách Hàng", form_KhachHang);
+
+// Đặt instance mới làm component được chọn
+tablepanel_from.setSelectedComponent(form_KhachHang);
+
     }//GEN-LAST:event_btnKhachHangActionPerformed
 
     private void btnBanHang4MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnBanHang4MouseClicked
@@ -445,7 +520,21 @@ public class Menu extends javax.swing.JFrame {
 
     private void btnBanHang4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBanHang4ActionPerformed
         // TODO add your handling code here:
-        tablepanel_from.setSelectedComponent(from_QuanLyNhanVien);
+//        tablepanel_from.setSelectedComponent(from_QuanLyNhanVien);
+int index = tablepanel_from.indexOfComponent(from_QuanLyNhanVien);
+if (index != -1) {
+    tablepanel_from.remove(index);
+}
+
+// Tạo một instance mới của Pn_QLyNhanVien
+from_QuanLyNhanVien = new Form_View.Pn_QLyNhanVien();
+
+// Thêm instance mới vào tabbed pane
+tablepanel_from.addTab("Quản Lý Nhân Viên", from_QuanLyNhanVien);
+
+// Đặt instance mới làm component được chọn
+tablepanel_from.setSelectedComponent(from_QuanLyNhanVien);
+
     }//GEN-LAST:event_btnBanHang4ActionPerformed
 
     private void btnBanHang5MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnBanHang5MouseClicked
@@ -454,6 +543,7 @@ public class Menu extends javax.swing.JFrame {
 
     private void btnBanHang5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBanHang5ActionPerformed
         // TODO add your handling code here:
+        new Test().setVisible(true);
     }//GEN-LAST:event_btnBanHang5ActionPerformed
 
     private void btnBanHang6MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnBanHang6MouseClicked

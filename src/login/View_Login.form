@@ -103,7 +103,7 @@
                       <Component id="jLabel8" min="-2" max="-2" attributes="0"/>
                       <EmptySpace max="-2" attributes="0"/>
                       <Component id="jLabel9" min="-2" max="-2" attributes="0"/>
-                      <EmptySpace pref="313" max="32767" attributes="0"/>
+                      <EmptySpace max="32767" attributes="0"/>
                       <Component id="jLabel5" min="-2" max="-2" attributes="0"/>
                   </Group>
               </Group>
@@ -113,7 +113,7 @@
             <Component class="javax.swing.JLabel" name="jLabel5">
               <Properties>
                 <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
-                  <Image iconType="3" name="/Image/logo-FPT-Polytechnic- (3).png"/>
+                  <Image iconType="3" name="/Image/nenLogin.png"/>
                 </Property>
                 <Property name="text" type="java.lang.String" value="jLabel5"/>
               </Properties>
@@ -253,10 +253,14 @@
             </Component>
             <Component class="javax.swing.JTextField" name="txt_tenDN">
               <Events>
+                <EventHandler event="mouseEntered" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="txt_tenDNMouseEntered"/>
                 <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="txt_tenDNActionPerformed"/>
               </Events>
             </Component>
             <Component class="javax.swing.JPasswordField" name="txt_MK">
+              <Events>
+                <EventHandler event="mouseEntered" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="txt_MKMouseEntered"/>
+              </Events>
             </Component>
             <Component class="javax.swing.JButton" name="btn_Login">
               <Properties>
@@ -269,6 +273,7 @@
                 <Property name="text" type="java.lang.String" value="Login"/>
               </Properties>
               <Events>
+                <EventHandler event="mouseEntered" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="btn_LoginMouseEntered"/>
                 <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btn_LoginActionPerformed"/>
               </Events>
             </Component>

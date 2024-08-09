@@ -14,6 +14,7 @@ import DTO.DTO_KhachHang;
 import Main.DataHolder;
 import Model.MD_Hang_CN;
 import Model.MD_HoaDon_CN;
+import Model.MD_TinhSL_CTSP_BanHang;
 import Model.MD_Vocher;
 import Service.SV_BanHang;
 import hung.Model_khachhang;
@@ -91,6 +92,8 @@ public class Form_BanHang extends javax.swing.JPanel {
     List<MD_HoaDon_CN> dtoHoaDon = new ArrayList<>();
     List<DTO_GioHang> dtoGioHang = new ArrayList<>();
     List<MD_Vocher> listvc = svBanHang.selectAllKhuyenMai();
+    List<MD_TinhSL_CTSP_BanHang> list_TinhLaiSLSau_banHangThanhCong = new ArrayList<>();
+    List<MD_TinhSL_CTSP_BanHang> list_getIDCtsp_SlTon = new ArrayList<>();
 
     /**
      * Creates new form Form_BanHang
@@ -102,6 +105,7 @@ public class Form_BanHang extends javax.swing.JPanel {
         initTableGioHang();
         initTableCTSP();
         initCboVocher();
+        list_getIDCtsp_SlTon = svBanHang.getidCTSP_SLTon();
 
         tblModel = (DefaultTableModel) tblGioHang.getModel();
         tblModel.setRowCount(0);
@@ -512,6 +516,7 @@ public class Form_BanHang extends javax.swing.JPanel {
         txtTongThanhToan = new javax.swing.JLabel();
         btnThanhToan = new javax.swing.JButton();
         jLabel6 = new javax.swing.JLabel();
+        jButton2 = new javax.swing.JButton();
 
         jPanel1.setBackground(new java.awt.Color(255, 153, 102));
 
@@ -966,6 +971,13 @@ public class Form_BanHang extends javax.swing.JPanel {
 
         jLabel6.setText("Nhấn 2 Click liên tiếp để xóa sản phẩm khỏi giỏ hàng !");
 
+        jButton2.setText("check");
+        jButton2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton2ActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout panel_Custom5Layout = new javax.swing.GroupLayout(panel_Custom5);
         panel_Custom5.setLayout(panel_Custom5Layout);
         panel_Custom5Layout.setHorizontalGroup(
@@ -980,7 +992,11 @@ public class Form_BanHang extends javax.swing.JPanel {
                         .addComponent(jLabel25)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addComponent(jLabel6))
-                    .addComponent(btnThanhToan, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addGroup(panel_Custom5Layout.createSequentialGroup()
+                        .addComponent(btnThanhToan, javax.swing.GroupLayout.PREFERRED_SIZE, 280, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(jButton2)
+                        .addGap(27, 27, 27)))
                 .addContainerGap())
         );
         panel_Custom5Layout.setVerticalGroup(
@@ -991,13 +1007,17 @@ public class Form_BanHang extends javax.swing.JPanel {
                     .addComponent(jLabel25)
                     .addComponent(jLabel6))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
+                .addComponent(jScrollPane3, javax.swing.GroupLayout.DEFAULT_SIZE, 191, Short.MAX_VALUE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(panel_Custom2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(panel_Custom7, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(btnThanhToan, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGroup(panel_Custom5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(btnThanhToan, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGroup(panel_Custom5Layout.createSequentialGroup()
+                        .addComponent(jButton2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addGap(4, 4, 4)))
                 .addContainerGap())
         );
 
@@ -1103,6 +1123,31 @@ public class Form_BanHang extends javax.swing.JPanel {
 
                 filltableHoaDon(dtoHoaDon);
                 JOptionPane.showMessageDialog(this, "Thanh toán thành công");
+
+//                Set lại số lượng tồn sau bán hàng 
+                List<MD_TinhSL_CTSP_BanHang> lgiohang = svBanHang.checktruSoLuongTon_sauBanHang(maHD_toanCuc);
+                List<MD_TinhSL_CTSP_BanHang> lctsp = list_getIDCtsp_SlTon;
+
+                if (!lgiohang.isEmpty()) {
+                    for (MD_TinhSL_CTSP_BanHang giohang : lgiohang) {
+                        for (MD_TinhSL_CTSP_BanHang ctsp : lctsp) {
+                            // Sử dụng == để so sánh giá trị int
+                            if (giohang.getIdCtsp() == ctsp.getIdCtsp()) {
+                                if (giohang.getSoLuong() != ctsp.getSoLuong()) {
+                                    int sl_TuCTSP = ctsp.getSoLuong();
+                                    int sl_TuGiohang = giohang.getSoLuong();
+                                    int soLuongConLaiSau_banHang = sl_TuCTSP - sl_TuGiohang;
+                                    System.out.println("=========Data cần update sl tồn======== : "
+                                            + "Sl trên giỏ " + giohang.getIdCtsp() + giohang.getSoLuong()
+                                            + " Sl ctsp từ db " + ctsp.getIdCtsp() + ctsp.getSoLuong()
+                                            + " Sl còn lại sau mua hàng cần update =======" + soLuongConLaiSau_banHang);
+                                    svBanHang.updateSlTonSauBanHang(soLuongConLaiSau_banHang, ctsp.getIdCtsp());
+                                }
+                            }
+                        }
+                    }
+                }
+
                 FirstPdf pdf = new FirstPdf(maHD_toanCuc, "NVTest", Integer.parseInt(txtMaKH.getText()), txtTenKH.getText(), txtSDTKH.getText(), txtTongTienHang.getText(), txtGiamGiaKhuyenMai.getText(), txtTongThanhToan.getText());
                 pdf.run();
 
@@ -1120,7 +1165,7 @@ public class Form_BanHang extends javax.swing.JPanel {
                 txtSDTKH.setText("");
                 txtEmail.setText("");
                 txtDiaChiKH.setText("");
-                
+
             } else if (response == JOptionPane.NO_OPTION) {
 
             }
@@ -1257,6 +1302,7 @@ public class Form_BanHang extends javax.swing.JPanel {
             svBanHang.taoDon(Integer.parseInt(txtMaKH.getText()), "NV001");
             dtoHoaDon = svBanHang.selectAllHoaDon();
             filltableHoaDon(dtoHoaDon);
+
         }
 
 
@@ -1354,6 +1400,12 @@ public class Form_BanHang extends javax.swing.JPanel {
         }
     }//GEN-LAST:event_tblGioHangMouseClicked
 
+    private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
+        // TODO add your handling code here:
+
+
+    }//GEN-LAST:event_jButton2ActionPerformed
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnTaoDonHang;
@@ -1361,6 +1413,7 @@ public class Form_BanHang extends javax.swing.JPanel {
     private javax.swing.JButton btnThemSP;
     private javax.swing.JComboBox<String> cboVocher;
     private javax.swing.JButton jButton1;
+    private javax.swing.JButton jButton2;
     private javax.swing.JButton jButton4;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel11;
