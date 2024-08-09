@@ -77,6 +77,7 @@ public class Form_BanHang extends javax.swing.JPanel {
     String idsp;//id toàn cục để fill ctsp
     Integer maHD_toanCuc;//mã Hóa đươn toàn cục gán khi click hóa đươn lấy ra giỏ hàng
     Integer idctsp_toanCuc;//id toàn cục để fill ctsp
+    Integer slTon_ChiTietSanPham;//id toàn cục để fill ctsp
     BigDecimal giaCTSP;
     String inputSoluong_toanCuc;
     Integer indexCu = null;
@@ -1119,7 +1120,7 @@ public class Form_BanHang extends javax.swing.JPanel {
                 txtSDTKH.setText("");
                 txtEmail.setText("");
                 txtDiaChiKH.setText("");
-
+                
             } else if (response == JOptionPane.NO_OPTION) {
 
             }
@@ -1162,6 +1163,9 @@ public class Form_BanHang extends javax.swing.JPanel {
 
     private void btnThemSPActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnThemSPActionPerformed
         // TODO add your handling code here:
+        List<DTO_GioHang> ghdt = svBanHang.selectAllGioHang(maHD_toanCuc);
+        Boolean check = false;
+
         System.out.println("Max spp trc khi chayj theem sp : " + idsp);
         if (maHD_toanCuc == null) {
             JOptionPane.showMessageDialog(this, "Vui lòng chọn hóa đơn trước khi thêm sản phẩm vào giỏ hàng tại bảng [Đơn hàng]", "Thông Báo Hệ Thống", JOptionPane.ERROR_MESSAGE);
@@ -1170,22 +1174,52 @@ public class Form_BanHang extends javax.swing.JPanel {
         } else if (idctsp_toanCuc == null) {
             JOptionPane.showMessageDialog(this, "Vui lòng Phiên bản sản phẩm cần mua tại bảng [Chi tiết sản phẩm]", "Thông Báo Hệ Thống", JOptionPane.ERROR_MESSAGE);
         } else {
+//            for(DTO_GioHang gh : ghdt){
+//                System.out.println("Dta Giỏ Hàng :"+gh);
+//                
+//            }
+
+//            if(idctsp_toanCuc == gh.get){
             inputSoluong_toanCuc = JOptionPane.showInputDialog("Nhập số lượng cần mua ?", 1);
-            System.out.println("=========================================================================");
-            System.out.println("Đã chọn hóa đơn với mã hóa đơn : " + maHD_toanCuc);
-            System.out.println("CTSP đã chọn : " + idctsp_toanCuc + " Giá chi tiết sản phẩm đã chọn : " + giaCTSP);
-            System.out.println("Số lượng input  ctsp: " + inputSoluong_toanCuc);
+            List<Integer> checkTrungSP_GioHang = svBanHang.checkTrung_CTSPGioHang(maHD_toanCuc, idctsp_toanCuc);
+            if (checkTrungSP_GioHang.isEmpty()) {
+                System.out.println("=====================================================================sản phẩm trong giỏ ko tồn tại ");
+                check = true;
+            } else {
+                for (Integer i : checkTrungSP_GioHang) {
+                    if (idctsp_toanCuc == i) {
+                        System.out.println("=====================================================================sản phẩm trong giỏ đã tồn tại ");
+                        check = false;
+                    }
+                }
 
-            BigDecimal soLuong = new BigDecimal(inputSoluong_toanCuc);
+            }
+            if (check == true) {
 
-            // Tính thành tiền bằng cách nhân giá với số lượng
-            BigDecimal thanhTienCTSP = giaCTSP.multiply(soLuong);
-            System.out.println("Sum gía số lương : " + thanhTienCTSP);
+                Integer slt = Integer.parseInt(inputSoluong_toanCuc);
+                if (slTon_ChiTietSanPham >= slt) {
+                    System.out.println("=========================================================================");
+                    System.out.println("Đã chọn hóa đơn với mã hóa đơn : " + maHD_toanCuc);
+                    System.out.println("CTSP đã chọn : " + idctsp_toanCuc + " Giá chi tiết sản phẩm đã chọn : " + giaCTSP);
+                    System.out.println("Số lượng input  ctsp: " + inputSoluong_toanCuc);
 
-            svBanHang.themCTSPVaoGioHang_HDCT(maHD_toanCuc, idctsp_toanCuc, Integer.parseInt(inputSoluong_toanCuc), giaCTSP, thanhTienCTSP);
-            dtoGioHang = svBanHang.selectAllGioHang(maHD_toanCuc);
-            filltableGioHang(dtoGioHang);
-            billTinhTien_tongTienhang();
+                    BigDecimal soLuong = new BigDecimal(inputSoluong_toanCuc);
+
+                    // Tính thành tiền bằng cách nhân giá với số lượng
+                    BigDecimal thanhTienCTSP = giaCTSP.multiply(soLuong);
+                    System.out.println("Sum gía số lương : " + thanhTienCTSP);
+
+                    svBanHang.themCTSPVaoGioHang_HDCT(maHD_toanCuc, idctsp_toanCuc, Integer.parseInt(inputSoluong_toanCuc), giaCTSP, thanhTienCTSP);
+                    dtoGioHang = svBanHang.selectAllGioHang(maHD_toanCuc);
+                    filltableGioHang(dtoGioHang);
+                    billTinhTien_tongTienhang();
+                } else {
+                    JOptionPane.showMessageDialog(this, "Trong khi chỉ còn " + slTon_ChiTietSanPham + " vui lòng không đặt số lượng cần mua quá số lượng tồn sản phẩm !", "Thông Báo Hệ Thống", JOptionPane.ERROR_MESSAGE);
+                }
+            } else {
+                JOptionPane.showMessageDialog(this, "Phiên bản của sản phẩm này đã tồn tại trong giỏ hàng !", "Thông Báo Hệ Thống", JOptionPane.ERROR_MESSAGE);
+            }
+
         }
     }//GEN-LAST:event_btnThemSPActionPerformed
 
@@ -1299,6 +1333,7 @@ public class Form_BanHang extends javax.swing.JPanel {
         // TODO add your handling code here:
         int index = tblChiTietSanPham.getSelectedRow();
         idctsp_toanCuc = dtoCTSP.get(index).getIdCtsp();
+        slTon_ChiTietSanPham = dtoCTSP.get(index).getSoLuongTon();
         giaCTSP = dtoCTSP.get(index).getGiaBan();
     }//GEN-LAST:event_tblChiTietSanPhamMouseClicked
 

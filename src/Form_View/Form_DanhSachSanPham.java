@@ -155,7 +155,7 @@ public class Form_DanhSachSanPham extends javax.swing.JPanel {
         );
         jpnImageSanPhamLayout.setVerticalGroup(
             jpnImageSanPhamLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(txtImageSanPham, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addComponent(txtImageSanPham, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
 
         panel_Custom1.setRoundBottomLeft(20);
@@ -900,25 +900,40 @@ public class Form_DanhSachSanPham extends javax.swing.JPanel {
     private void txtImageSanPhamMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_txtImageSanPhamMouseClicked
 
         // TODO add your handling code here:
-        JFileChooser fileChooser = new JFileChooser();
+        // TODO add your handling code here:
+JFileChooser fileChooser = new JFileChooser();
 
-        // Set file filter to allow only image files
-        FileNameExtensionFilter imageFilter = new FileNameExtensionFilter(
-                "Image files", "jpg", "jpeg", "png", "gif");
-        fileChooser.setFileFilter(imageFilter);
+// Set file filter to allow only image files
+FileNameExtensionFilter imageFilter = new FileNameExtensionFilter(
+        "Image files", "jpg", "jpeg", "png", "gif");
+fileChooser.setFileFilter(imageFilter);
 
-        // Show the dialog
-        int returnValue = fileChooser.showOpenDialog(this);
+// Show the dialog
+int returnValue = fileChooser.showOpenDialog(this);
 
-        // If a file is selected, set it as the icon for the button
-        if (returnValue == JFileChooser.APPROVE_OPTION) {
-            File selectedFile = fileChooser.getSelectedFile();
-            ImageIcon icon = new ImageIcon(selectedFile.getAbsolutePath());
-            txtImageSanPham.setIcon(icon);
-            txtImageSanPham.setText("");
-            linkImage = selectedFile.getAbsolutePath();
-//            System.out.println("Link image: " + selectedFile.getAbsolutePath());
-        }
+// If a file is selected, check its dimensions
+if (returnValue == JFileChooser.APPROVE_OPTION) {
+    File selectedFile = fileChooser.getSelectedFile();
+    ImageIcon icon = new ImageIcon(selectedFile.getAbsolutePath());
+    
+    // Get image dimensions
+    int width = icon.getIconWidth();
+    int height = icon.getIconHeight();
+    
+    // Check if the dimensions exceed the specified limits
+    if (width > 320 || height > 274) {
+        // Show error message and do not set the icon
+        JOptionPane.showMessageDialog(this, "Ảnh Sản phẩm không được quá 320x270 pixels.", "Thông Báo Hệ Thống !", JOptionPane.ERROR_MESSAGE);
+    } else {
+        // Set the icon and clear the text
+        txtImageSanPham.setIcon(icon);
+        txtImageSanPham.setText("");
+        linkImage = selectedFile.getAbsolutePath();
+        // Optionally, you can print the link to the console
+        // System.out.println("Link image: " + selectedFile.getAbsolutePath());
+    }
+}
+
     }//GEN-LAST:event_txtImageSanPhamMouseClicked
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed

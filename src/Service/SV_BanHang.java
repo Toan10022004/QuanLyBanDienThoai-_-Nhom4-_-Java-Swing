@@ -339,7 +339,6 @@ public class SV_BanHang {
                         rs.getString(2),
                         rs.getInt(3),
                         rs.getBigDecimal(4)
-                        
                 ));
             }
             return dto;
@@ -347,4 +346,41 @@ public class SV_BanHang {
         }
         return null;
     }
+
+    public List<Integer> checkTrung_CTSPGioHang(Integer maHD, Integer idctsp) {
+        String sql = "SELECT IdSP FROM HoaDonChiTiet WHERE MaHD = ? AND IdSP = ?";
+        List<Integer> resultList = new ArrayList<>();
+
+        try {
+            conn = cdao.getConnectDAO();
+            ps = conn.prepareStatement(sql);
+            ps.setInt(1, maHD);
+            ps.setInt(2, idctsp);
+            rs = ps.executeQuery();
+
+            while (rs.next()) {
+                resultList.add(rs.getInt("IdSP"));
+            }
+        } catch (SQLException ex) {
+            ex.printStackTrace(); // Consider logging the exception for better debugging
+        } finally {
+            // Clean up resources
+            try {
+                if (rs != null) {
+                    rs.close();
+                }
+                if (ps != null) {
+                    ps.close();
+                }
+                if (conn != null) {
+                    conn.close();
+                }
+            } catch (SQLException e) {
+                e.printStackTrace(); // Consider logging the exception for better debugging
+            }
+        }
+
+        return resultList;
+    }
+    
 }
