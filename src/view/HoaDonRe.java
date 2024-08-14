@@ -1,5 +1,6 @@
 package view;
 
+import DTO.DTO_XuatHoaDon_HoaDon;
 import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -9,6 +10,7 @@ import view.HoaDon;
 import view.HoaDonChiTiet;
 import view.KhuyenMailk;
 import java.sql.PreparedStatement;
+import java.util.List;
 
 public class HoaDonRe {
 
@@ -90,5 +92,36 @@ public class HoaDonRe {
             e.printStackTrace();
         }
         return lsKhuyenMailk;
+    }
+
+    public ArrayList<DTO_XuatHoaDon_HoaDon> inHoaDon(Integer maHD) {
+        String sql = "SELECT HoaDon.MaHD, HoaDon.MaNV, QuanLyKhachHang.MaKH, QuanLyKhachHang.TenKH, QuanLyKhachHang.SDT, HoaDon.TongTien\n"
+                + "FROM   HoaDon INNER JOIN\n"
+                + "             HoaDonChiTiet ON HoaDon.MaHD = HoaDonChiTiet.MaHD INNER JOIN\n"
+                + "             QuanLyKhachHang ON HoaDon.MaKH = QuanLyKhachHang.MaKH INNER JOIN\n"
+                + "             ctsp ON HoaDonChiTiet.IdSP = ctsp.id INNER JOIN\n"
+                + "             san_pham ON ctsp.id_san_pham = san_pham.id_san_pham\n"
+                + "WHERE (HoaDon.MaHD = ?)";
+        ArrayList<DTO_XuatHoaDon_HoaDon> dto = new ArrayList<>();
+        try {
+
+            Connection cn = DBconnert.getdataUSER();
+            ps = cn.prepareStatement(sql);
+            ps.setInt(1, maHD);
+            ResultSet rs = ps.executeQuery();
+            while (rs.next()) {
+                dto.add(new DTO_XuatHoaDon_HoaDon(
+                        rs.getInt(1),
+                        rs.getString(2),
+                        rs.getInt(3),
+                        rs.getString(4),
+                        rs.getString(5),
+                        rs.getBigDecimal(6)
+                ));
+            }
+            return dto;
+        } catch (SQLException ex) {
+        }
+        return null;
     }
 }

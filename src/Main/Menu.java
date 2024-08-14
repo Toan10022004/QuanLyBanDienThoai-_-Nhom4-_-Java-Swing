@@ -1,4 +1,3 @@
-
 package Main;
 
 import Form_View.Form_BanHang;
@@ -37,39 +36,29 @@ public class Menu extends javax.swing.JFrame {
         btnKhachHang = new javax.swing.JButton();
         btnBanHang4 = new javax.swing.JButton();
         btnBanHang5 = new javax.swing.JButton();
-        panel_Custom1 = new Swing_Custom.Panel_Custom();
-        jLabel2 = new javax.swing.JLabel();
-        customButton11 = new Swing_Custom.CustomButton1();
-        jSeparator2 = new javax.swing.JSeparator();
-        jLabel3 = new javax.swing.JLabel();
-        jLabel4 = new javax.swing.JLabel();
-        jLabel5 = new javax.swing.JLabel();
-        jLabel6 = new javax.swing.JLabel();
-        jLabel7 = new javax.swing.JLabel();
-        jLabel9 = new javax.swing.JLabel();
         jSeparator1 = new javax.swing.JSeparator();
         btnBanHang6 = new javax.swing.JButton();
         btbLoai = new javax.swing.JButton();
-        panel_Custom2 = new Swing_Custom.Panel_Custom();
+        panel_Custom1 = new Swing_Custom.Panel_Custom();
         jLabel1 = new javax.swing.JLabel();
         tablepanel_from = new javax.swing.JTabbedPane();
-        form_hang = new Form_View.Form_Hang();
         form_TrangChu = new Form_View.Form_TrangChu();
-        form_KhachHang = new Form_View.Form_KhachHang();
-        form_loai = new Form_View.Form_loai();
         form_BanHang = new Form_View.Form_BanHang();
-        from_QuanLyNhanVien = new Form_View.Pn_QLyNhanVien();
+        form_dssp = new Form_View.Form_DanhSachSanPham();
+        form_hang = new Form_View.Form_Hang();
         try {
             form_KhuyenMai = new Form_View.KhuyenMaiF();
         } catch (java.sql.SQLException e1) {
             e1.printStackTrace();
         }
+        from_QuanLyNhanVien = new Form_View.Pn_QLyNhanVien();
+        form_loai = new Form_View.Form_loai();
+        form_KhachHang = new Form_View.Form_KhachHang();
         try {
             from_HoaDon = new Form_View.HoaDonF();
         } catch (java.sql.SQLException e1) {
             e1.printStackTrace();
         }
-        form_dssp = new Form_View.Form_DanhSachSanPham();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
@@ -172,80 +161,6 @@ public class Menu extends javax.swing.JFrame {
             }
         });
 
-        panel_Custom1.setRoundBottomLeft(25);
-        panel_Custom1.setRoundBottomRight(25);
-        panel_Custom1.setRoundTopLeft(25);
-        panel_Custom1.setRoundTopRight(25);
-
-        jLabel2.setFont(new java.awt.Font("Segoe UI", 3, 14)); // NOI18N
-        jLabel2.setForeground(new java.awt.Color(255, 51, 51));
-        jLabel2.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel2.setText("Thông Tin Đăng Nhập");
-
-        customButton11.setText("Đăng Xuất");
-
-        jSeparator2.setForeground(new java.awt.Color(0, 0, 0));
-
-        jLabel3.setText("Mã Nhân Viên");
-
-        jLabel4.setFont(new java.awt.Font("Segoe UI", 3, 12)); // NOI18N
-        jLabel4.setText("NV009");
-
-        jLabel5.setText("Tên Nhân Viên");
-
-        jLabel6.setFont(new java.awt.Font("Segoe UI", 3, 12)); // NOI18N
-        jLabel6.setText("Nguyen Van A");
-
-        jLabel7.setText("Quyền Hạn");
-
-        jLabel9.setFont(new java.awt.Font("Segoe UI", 3, 12)); // NOI18N
-        jLabel9.setText("ADMIN");
-
-        javax.swing.GroupLayout panel_Custom1Layout = new javax.swing.GroupLayout(panel_Custom1);
-        panel_Custom1.setLayout(panel_Custom1Layout);
-        panel_Custom1Layout.setHorizontalGroup(
-            panel_Custom1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jLabel2, javax.swing.GroupLayout.DEFAULT_SIZE, 194, Short.MAX_VALUE)
-            .addComponent(jSeparator2)
-            .addGroup(panel_Custom1Layout.createSequentialGroup()
-                .addContainerGap()
-                .addGroup(panel_Custom1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(customButton11, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(jLabel4, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(jLabel6, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addGroup(panel_Custom1Layout.createSequentialGroup()
-                        .addGroup(panel_Custom1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jLabel3)
-                            .addComponent(jLabel5)
-                            .addComponent(jLabel7))
-                        .addGap(0, 0, Short.MAX_VALUE))
-                    .addComponent(jLabel9, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                .addContainerGap())
-        );
-        panel_Custom1Layout.setVerticalGroup(
-            panel_Custom1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(panel_Custom1Layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(jLabel2)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jLabel3)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jLabel4)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(jLabel5)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jLabel6)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(jLabel7)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jLabel9)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(jSeparator2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(customButton11, javax.swing.GroupLayout.PREFERRED_SIZE, 34, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap())
-        );
-
         jSeparator1.setForeground(new java.awt.Color(0, 0, 0));
 
         btnBanHang6.setText("Trang Chủ");
@@ -272,31 +187,28 @@ public class Menu extends javax.swing.JFrame {
             }
         });
 
-        panel_Custom2.setBackground(new java.awt.Color(255, 255, 255));
-        panel_Custom2.setRoundBottomLeft(10);
-        panel_Custom2.setRoundBottomRight(10);
-        panel_Custom2.setRoundTopLeft(10);
-        panel_Custom2.setRoundTopRight(10);
+        panel_Custom1.setBackground(new java.awt.Color(255, 255, 255));
+        panel_Custom1.setRoundBottomLeft(10);
+        panel_Custom1.setRoundBottomRight(10);
+        panel_Custom1.setRoundTopLeft(10);
+        panel_Custom1.setRoundTopRight(10);
 
-        jLabel1.setFont(new java.awt.Font("Segoe UI", 3, 18)); // NOI18N
+        jLabel1.setBackground(new java.awt.Color(255, 255, 255));
         jLabel1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Image/logo.jpg"))); // NOI18N
 
-        javax.swing.GroupLayout panel_Custom2Layout = new javax.swing.GroupLayout(panel_Custom2);
-        panel_Custom2.setLayout(panel_Custom2Layout);
-        panel_Custom2Layout.setHorizontalGroup(
-            panel_Custom2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(panel_Custom2Layout.createSequentialGroup()
+        javax.swing.GroupLayout panel_Custom1Layout = new javax.swing.GroupLayout(panel_Custom1);
+        panel_Custom1.setLayout(panel_Custom1Layout);
+        panel_Custom1Layout.setHorizontalGroup(
+            panel_Custom1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(jLabel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+        );
+        panel_Custom1Layout.setVerticalGroup(
+            panel_Custom1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(panel_Custom1Layout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(jLabel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addContainerGap())
-        );
-        panel_Custom2Layout.setVerticalGroup(
-            panel_Custom2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(panel_Custom2Layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 52, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
@@ -306,9 +218,7 @@ public class Menu extends javax.swing.JFrame {
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addGap(3, 3, 3)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(panel_Custom2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(btnBanHang5, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(panel_Custom1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(btnBanHang4, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(btnKhachHang, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(btnVocher, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
@@ -316,16 +226,17 @@ public class Menu extends javax.swing.JFrame {
                     .addComponent(jButton1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(btnHoaDon, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(btnBanHang, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(btbLoai, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(btbLoai, javax.swing.GroupLayout.DEFAULT_SIZE, 196, Short.MAX_VALUE)
                     .addComponent(btnBanHang6, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addGap(0, 0, 0)
-                .addComponent(jSeparator1))
+                .addComponent(jSeparator1, javax.swing.GroupLayout.DEFAULT_SIZE, 1, Short.MAX_VALUE))
+            .addComponent(panel_Custom1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(panel_Custom2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(panel_Custom1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(btnBanHang6, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -348,24 +259,22 @@ public class Menu extends javax.swing.JFrame {
                 .addComponent(btnBanHang5, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jSeparator1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(panel_Custom1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(43, Short.MAX_VALUE))
+                .addContainerGap(272, Short.MAX_VALUE))
         );
 
         getContentPane().add(jPanel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 200, 737));
 
-        tablepanel_from.addTab("tab3", form_hang);
-        tablepanel_from.addTab("tab5", form_TrangChu);
-        tablepanel_from.addTab("tab7", form_KhachHang);
-        tablepanel_from.addTab("tab8", form_loai);
-        tablepanel_from.addTab("tab9", form_BanHang);
-        tablepanel_from.addTab("tab7", from_QuanLyNhanVien);
-        tablepanel_from.addTab("tab8", form_KhuyenMai);
+        tablepanel_from.addTab("tab1", form_TrangChu);
+        tablepanel_from.addTab("tab2", form_BanHang);
+        tablepanel_from.addTab("tab3", form_dssp);
+        tablepanel_from.addTab("tab4", form_hang);
+        tablepanel_from.addTab("tab5", form_KhuyenMai);
+        tablepanel_from.addTab("tab6", from_QuanLyNhanVien);
+        tablepanel_from.addTab("tab7", form_loai);
+        tablepanel_from.addTab("tab8", form_KhachHang);
         tablepanel_from.addTab("tab9", from_HoaDon);
-        tablepanel_from.addTab("tab1", form_dssp);
 
-        getContentPane().add(tablepanel_from, new org.netbeans.lib.awtextra.AbsoluteConstraints(192, -33, 1343, 770));
+        getContentPane().add(tablepanel_from, new org.netbeans.lib.awtextra.AbsoluteConstraints(200, -40, 1340, 780));
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
@@ -381,19 +290,19 @@ public class Menu extends javax.swing.JFrame {
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
         // TODO add your handling code here:
 //        tablepanel_from.setSelectedComponent(form_dssp);
-int index = tablepanel_from.indexOfComponent(form_dssp);
-if (index != -1) {
-    tablepanel_from.remove(index);
-}
+        int index = tablepanel_from.indexOfComponent(form_dssp);
+        if (index != -1) {
+            tablepanel_from.remove(index);
+        }
 
 // Tạo một instance mới của Form_DanhSachSanPham
-form_dssp = new Form_View.Form_DanhSachSanPham();
+        form_dssp = new Form_View.Form_DanhSachSanPham();
 
 // Thêm instance mới vào tabbed pane
-tablepanel_from.addTab("Danh Sách Sản Phẩm", form_dssp);
+        tablepanel_from.addTab("Danh Sách Sản Phẩm", form_dssp);
 
 // Đặt instance mới làm component được chọn
-tablepanel_from.setSelectedComponent(form_dssp);
+        tablepanel_from.setSelectedComponent(form_dssp);
 
 
     }//GEN-LAST:event_jButton1ActionPerformed
@@ -401,19 +310,19 @@ tablepanel_from.setSelectedComponent(form_dssp);
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
         // TODO add your handling code here:
 //        tablepanel_from.setSelectedComponent(form_hang);
-int index = tablepanel_from.indexOfComponent(form_hang);
-if (index != -1) {
-    tablepanel_from.remove(index);
-}
+        int index = tablepanel_from.indexOfComponent(form_hang);
+        if (index != -1) {
+            tablepanel_from.remove(index);
+        }
 
 // Tạo một instance mới của Form_Hang
-form_hang = new Form_View.Form_Hang();
+        form_hang = new Form_View.Form_Hang();
 
 // Thêm instance mới vào tabbed pane
-tablepanel_from.addTab("Hãng", form_hang);
+        tablepanel_from.addTab("Hãng", form_hang);
 
 // Đặt instance mới làm component được chọn
-tablepanel_from.setSelectedComponent(form_hang);
+        tablepanel_from.setSelectedComponent(form_hang);
 
 
     }//GEN-LAST:event_jButton2ActionPerformed
@@ -446,25 +355,25 @@ tablepanel_from.setSelectedComponent(form_hang);
 
     private void btnHoaDonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnHoaDonActionPerformed
         // TODO add your handling code here:
-//        tablepanel_from.setSelectedComponent(from_HoaDon);
-int index = tablepanel_from.indexOfComponent(from_HoaDon);
-if (index != -1) {
-    tablepanel_from.remove(index);
-}
+        tablepanel_from.setSelectedComponent(from_HoaDon);
+        int index = tablepanel_from.indexOfComponent(from_HoaDon);
+        if (index != -1) {
+            tablepanel_from.remove(index);
+        }
 
-try {
-    // Tạo một instance mới của HoaDonF (hoặc tên form tương ứng)
-    from_HoaDon = new Form_View.HoaDonF();
+        try {
+            // Tạo một instance mới của HoaDonF (hoặc tên form tương ứng)
+            from_HoaDon = new Form_View.HoaDonF();
 
-    // Thêm instance mới vào tabbed pane
-    tablepanel_from.addTab("Hóa Đơn", from_HoaDon);
+            // Thêm instance mới vào tabbed pane
+            tablepanel_from.addTab("Hóa Đơn", from_HoaDon);
 
-    // Đặt instance mới làm component được chọn
-    tablepanel_from.setSelectedComponent(from_HoaDon);
-} catch (Exception e) {
-    e.printStackTrace(); // Hoặc xử lý lỗi theo cách khác nếu cần thiết
-    JOptionPane.showMessageDialog(this, "Lỗi khi tải dữ liệu hóa đơn: " + e.getMessage(), "Lỗi", JOptionPane.ERROR_MESSAGE);
-}
+            // Đặt instance mới làm component được chọn
+            tablepanel_from.setSelectedComponent(from_HoaDon);
+        } catch (Exception e) {
+            e.printStackTrace(); // Hoặc xử lý lỗi theo cách khác nếu cần thiết
+            JOptionPane.showMessageDialog(this, "Lỗi khi tải dữ liệu hóa đơn: " + e.getMessage(), "Lỗi", JOptionPane.ERROR_MESSAGE);
+        }
 
     }//GEN-LAST:event_btnHoaDonActionPerformed
 
@@ -486,7 +395,6 @@ try {
 //    e.printStackTrace(); // Hoặc xử lý lỗi theo cách khác nếu cần thiết
 //    JOptionPane.showMessageDialog(this, "Lỗi khi tải dữ liệu khuyến mãi: " + e.getMessage(), "Lỗi", JOptionPane.ERROR_MESSAGE);
 //}
-
 
 
     }//GEN-LAST:event_btnVocherActionPerformed
@@ -521,19 +429,19 @@ tablepanel_from.setSelectedComponent(form_KhachHang);
     private void btnBanHang4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBanHang4ActionPerformed
         // TODO add your handling code here:
 //        tablepanel_from.setSelectedComponent(from_QuanLyNhanVien);
-int index = tablepanel_from.indexOfComponent(from_QuanLyNhanVien);
-if (index != -1) {
-    tablepanel_from.remove(index);
-}
+        int index = tablepanel_from.indexOfComponent(from_QuanLyNhanVien);
+        if (index != -1) {
+            tablepanel_from.remove(index);
+        }
 
 // Tạo một instance mới của Pn_QLyNhanVien
-from_QuanLyNhanVien = new Form_View.Pn_QLyNhanVien();
+        from_QuanLyNhanVien = new Form_View.Pn_QLyNhanVien();
 
 // Thêm instance mới vào tabbed pane
-tablepanel_from.addTab("Quản Lý Nhân Viên", from_QuanLyNhanVien);
+        tablepanel_from.addTab("Quản Lý Nhân Viên", from_QuanLyNhanVien);
 
 // Đặt instance mới làm component được chọn
-tablepanel_from.setSelectedComponent(from_QuanLyNhanVien);
+        tablepanel_from.setSelectedComponent(from_QuanLyNhanVien);
 
     }//GEN-LAST:event_btnBanHang4ActionPerformed
 
@@ -609,7 +517,6 @@ tablepanel_from.setSelectedComponent(from_QuanLyNhanVien);
     private javax.swing.JButton btnHoaDon;
     private javax.swing.JButton btnKhachHang;
     private javax.swing.JButton btnVocher;
-    private Swing_Custom.CustomButton1 customButton11;
     private Form_View.Form_BanHang form_BanHang;
     private Form_View.Form_KhachHang form_KhachHang;
     private Form_View.KhuyenMaiF form_KhuyenMai;
@@ -622,18 +529,9 @@ tablepanel_from.setSelectedComponent(from_QuanLyNhanVien);
     private javax.swing.JButton jButton1;
     private javax.swing.JButton jButton2;
     private javax.swing.JLabel jLabel1;
-    private javax.swing.JLabel jLabel2;
-    private javax.swing.JLabel jLabel3;
-    private javax.swing.JLabel jLabel4;
-    private javax.swing.JLabel jLabel5;
-    private javax.swing.JLabel jLabel6;
-    private javax.swing.JLabel jLabel7;
-    private javax.swing.JLabel jLabel9;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JSeparator jSeparator1;
-    private javax.swing.JSeparator jSeparator2;
     private Swing_Custom.Panel_Custom panel_Custom1;
-    private Swing_Custom.Panel_Custom panel_Custom2;
     private javax.swing.JTabbedPane tablepanel_from;
     // End of variables declaration//GEN-END:variables
 }

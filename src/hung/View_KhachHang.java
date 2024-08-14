@@ -13,76 +13,84 @@ import javax.swing.table.DefaultTableModel;
  * @author admin
  */
 public class View_KhachHang extends javax.swing.JFrame {
+
     private Repositories_KhachHang repositories_KhachHang;
- private Repositories_KhachHang R_KH = new Repositories_KhachHang();
- private DefaultTableModel mol = new DefaultTableModel();
+    private Repositories_KhachHang R_KH = new Repositories_KhachHang();
+    private DefaultTableModel mol = new DefaultTableModel();
     private int i = -1;// chỉ số dòng trong bảng
-    
-     void fillTable(ArrayList<Model_khachhang> list){
-        mol = (DefaultTableModel)btlqlkh.getModel();
+
+    void fillTable(ArrayList<Model_khachhang> list) {
+        mol = (DefaultTableModel) btlqlkh.getModel();
         mol.setRowCount(0);
-        for(Model_khachhang x : list){
+        for (Model_khachhang x : list) {
             mol.addRow(x.toDataRow());
         }
     }
-     
+
     public View_KhachHang() {
         repositories_KhachHang = new Repositories_KhachHang();
         initComponents();
         fillTable(R_KH.getAll());
     }
-     void showData(int i) {
+
+    void showData(int i) {
         txtma.setText(btlqlkh.getValueAt(i, 0).toString());
         txtten.setText(btlqlkh.getValueAt(i, 1).toString());
         txtsdt.setText(btlqlkh.getValueAt(i, 2).toString());
         txtemai.setText(btlqlkh.getValueAt(i, 3).toString());
         txtdiachi.setText(btlqlkh.getValueAt(i, 4).toString());
-     }
-   private boolean isValidCustomerData() {
-    
-
-    // Kiểm tra tên khách hàng
-    if (txtten.getText().trim().isEmpty() || !isValidName(txtten.getText())) {
-        JOptionPane.showMessageDialog(this, "Tên khách hàng không hợp lệ!", "Error", JOptionPane.ERROR_MESSAGE);
-        return false;
     }
 
-    // Kiểm tra số điện thoại
-    if (!isValidPhoneNumber(txtsdt.getText())) {
-        JOptionPane.showMessageDialog(this, "Số điện thoại không hợp lệ!", "Error", JOptionPane.ERROR_MESSAGE);
-        return false;
+    private boolean isValidCustomerData() {
+// Kiểm tra mã khách hàng
+        if (txtma.getText().trim().isEmpty() || !txtma.getText().matches("\\d+")) {
+            JOptionPane.showMessageDialog(this, "Mã khách hàng không hợp lệ!", "Error", JOptionPane.ERROR_MESSAGE);
+            return false;
+        }
+
+        // Kiểm tra tên khách hàng
+        if (txtten.getText().trim().isEmpty() || !isValidName(txtten.getText())) {
+            JOptionPane.showMessageDialog(this, "Tên khách hàng không hợp lệ!", "Error", JOptionPane.ERROR_MESSAGE);
+            return false;
+        }
+
+        // Kiểm tra số điện thoại
+        if (!isValidPhoneNumber(txtsdt.getText())) {
+            JOptionPane.showMessageDialog(this, "Số điện thoại không hợp lệ!", "Error", JOptionPane.ERROR_MESSAGE);
+            return false;
+        }
+        // Kiểm tra email
+        if (!isValidEmail(txtemai.getText())) {
+            JOptionPane.showMessageDialog(this, "Email không hợp lệ!", "Error", JOptionPane.ERROR_MESSAGE);
+            return false;
+        }
+
+        // Kiểm tra địa chỉ
+        if (txtdiachi.getText().trim().isEmpty()) {
+            JOptionPane.showMessageDialog(this, "Địa chỉ không được để trống!", "Error", JOptionPane.ERROR_MESSAGE);
+            return false;
+        }
+
+        return true;
     }
 
-    // Kiểm tra email
-    if (!isValidEmail(txtemai.getText())) {
-        JOptionPane.showMessageDialog(this, "Email không hợp lệ!", "Error", JOptionPane.ERROR_MESSAGE);
-        return false;
+    public boolean isValidName(String name) {
+        return name != null && !name.trim().isEmpty() && name.matches("[a-zA-Z\\s-]+");
     }
 
-    // Kiểm tra địa chỉ
-    if (txtdiachi.getText().trim().isEmpty()) {
-        JOptionPane.showMessageDialog(this, "Địa chỉ không được để trống!", "Error", JOptionPane.ERROR_MESSAGE);
-        return false;
+    public boolean isValidPhoneNumber(String phoneNumber) {
+
+        String phoneRegex = "^\\d{10}$";
+        return phoneNumber != null && phoneNumber.matches(phoneRegex);
     }
 
-    return true;
-}
+    public boolean isValidEmail(String email) {
+        String emailRegex = "^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\\.[a-zA-Z]{2,}$";
+        return email != null && email.matches(emailRegex);
 
-public boolean isValidName(String name) {
-    return name != null && !name.trim().isEmpty() && name.matches("[a-zA-Z\\s-]+");
-}
+    }
 
-public boolean isValidPhoneNumber(String phoneNumber) {
-    String phoneRegex = "^\\+?[0-9]{1,4}?[-.\\s]?\\(?[0-9]{1,4}?\\)?[-.\\s]?[0-9]{1,9}$";
-    return phoneNumber != null && phoneNumber.matches(phoneRegex);
-}
-
-public boolean isValidEmail(String email) {
-    String emailRegex = "^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\\.[a-zA-Z]{2,}$";
-    return email != null && email.matches(emailRegex);
-
-    }    
-@SuppressWarnings("unchecked")
+    @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
@@ -131,7 +139,6 @@ public boolean isValidEmail(String email) {
 
         jLabel2.setText("Tên");
 
-        txtma.setEditable(false);
         txtma.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 txtmaActionPerformed(evt);
@@ -300,21 +307,21 @@ public boolean isValidEmail(String email) {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 private void fillTable() {
-    // Xóa dữ liệu cũ trong bảng
-    DefaultTableModel model = (DefaultTableModel) btlqlkh.getModel();
-    model.setRowCount(0);
+        // Xóa dữ liệu cũ trong bảng
+        DefaultTableModel model = (DefaultTableModel) btlqlkh.getModel();
+        model.setRowCount(0);
 
-    // Lấy danh sách khách hàng từ cơ sở dữ liệu
-    ArrayList<Model_khachhang> list = repositories_KhachHang.getAll();
+        // Lấy danh sách khách hàng từ cơ sở dữ liệu
+        ArrayList<Model_khachhang> list = repositories_KhachHang.getAll();
 
-    // Kiểm tra danh sách có rỗng không
-    if (list != null) {
-        // Thêm từng khách hàng vào bảng
-        for (Model_khachhang kh : list) {
-            model.addRow(new Object[]{kh.getMaKH(), kh.getTenKH(), kh.getSDT(), kh.getEmail(), kh.getDiaChi()});
+        // Kiểm tra danh sách có rỗng không
+        if (list != null) {
+            // Thêm từng khách hàng vào bảng
+            for (Model_khachhang kh : list) {
+                model.addRow(new Object[]{kh.getMaKH(), kh.getTenKH(), kh.getSDT(), kh.getEmail(), kh.getDiaChi()});
+            }
         }
     }
-}
     private void txtmaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtmaActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_txtmaActionPerformed
@@ -325,46 +332,47 @@ private void fillTable() {
 
     private void btlqlkhMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btlqlkhMouseClicked
         // TODO add your handling code here:
-         i = btlqlkh.getSelectedRow();
+        i = btlqlkh.getSelectedRow();
         this.showData(i);
     }//GEN-LAST:event_btlqlkhMouseClicked
 
     private void btnthemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnthemActionPerformed
         if (isValidCustomerData()) {
-        String tenKH = txtten.getText();
-        String sdt = txtsdt.getText();
-        String email = txtemai.getText();
-        
-        // Kiểm tra xem tên, SDT, email đã tồn tại chưa
-        boolean isDuplicateName = R_KH.getAll().stream().anyMatch(kh -> kh.getTenKH().equals(tenKH));
-        boolean isDuplicateSDT = R_KH.getAll().stream().anyMatch(kh -> kh.getSDT().equals(sdt));
-        boolean isDuplicateEmail = R_KH.getAll().stream().anyMatch(kh -> kh.getEmail().equals(email));
-        
-        if (isDuplicateName) {
-            JOptionPane.showMessageDialog(this, "Tên khách hàng đã tồn tại!", "Error", JOptionPane.ERROR_MESSAGE);
-        } else if (isDuplicateSDT) {
-            JOptionPane.showMessageDialog(this, "Số điện thoại đã tồn tại!", "Error", JOptionPane.ERROR_MESSAGE);
-        } else if (isDuplicateEmail) {
-            JOptionPane.showMessageDialog(this, "Email đã tồn tại!", "Error", JOptionPane.ERROR_MESSAGE);
-        } else {
-            Model_khachhang khachHang = new Model_khachhang();
-            khachHang.setMaKH(0);
-            khachHang.setTenKH(tenKH);
-            khachHang.setSDT(sdt);
-            khachHang.setEmail(email);
-            khachHang.setDiaChi(txtdiachi.getText());
-            if (R_KH.add(khachHang)) {
-                fillTable(R_KH.getAll());
-                JOptionPane.showMessageDialog(this, "Thêm khách hàng thành công!", "Success", JOptionPane.INFORMATION_MESSAGE);
+            String tenKH = txtten.getText();
+            String sdt = txtsdt.getText();
+            String email = txtemai.getText();
+
+            // Kiểm tra xem tên, SDT, email đã tồn tại chưa
+            boolean isDuplicateName = R_KH.getAll().stream().anyMatch(kh -> kh.getTenKH().equals(tenKH));
+            boolean isDuplicateSDT = R_KH.getAll().stream().anyMatch(kh -> kh.getSDT().equals(sdt));
+            boolean isDuplicateEmail = R_KH.getAll().stream().anyMatch(kh -> kh.getEmail().equals(email));
+
+//        if (isDuplicateName) {
+//            JOptionPane.showMessageDialog(this, "Tên khách hàng đã tồn tại!", "Error", JOptionPane.ERROR_MESSAGE);
+//        } else 
+            if (isDuplicateSDT) {
+                JOptionPane.showMessageDialog(this, "Số điện thoại đã tồn tại!", "Error", JOptionPane.ERROR_MESSAGE);
+            } else if (isDuplicateEmail) {
+                JOptionPane.showMessageDialog(this, "Email đã tồn tại!", "Error", JOptionPane.ERROR_MESSAGE);
             } else {
-                JOptionPane.showMessageDialog(this, "Thêm khách hàng thất bại!", "Error", JOptionPane.ERROR_MESSAGE);
+                Model_khachhang khachHang = new Model_khachhang();
+                khachHang.setMaKH(Integer.parseInt(txtma.getText()));
+                khachHang.setTenKH(tenKH);
+                khachHang.setSDT(sdt);
+                khachHang.setEmail(email);
+                khachHang.setDiaChi(txtdiachi.getText());
+                if (R_KH.add(khachHang)) {
+                    fillTable(R_KH.getAll());
+                    JOptionPane.showMessageDialog(this, "Thêm khách hàng thành công!", "Success", JOptionPane.INFORMATION_MESSAGE);
+                } else {
+                    JOptionPane.showMessageDialog(this, "Thêm khách hàng thất bại!", "Error", JOptionPane.ERROR_MESSAGE);
+                }
             }
         }
-    }
     }//GEN-LAST:event_btnthemActionPerformed
 
     private void btnsuaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnsuaActionPerformed
-     if (isValidCustomerData()) {
+        if (isValidCustomerData()) {
             String tenKH = txtten.getText();
             String sdt = txtsdt.getText();
             String email = txtemai.getText();
@@ -377,9 +385,10 @@ private void fillTable() {
             boolean isDuplicateEmail = repositories_KhachHang.getAll().stream()
                     .anyMatch(kh -> kh.getEmail().equals(email) && kh.getMaKH() != maKH);
 
-            if (isDuplicateName) {
-                JOptionPane.showMessageDialog(this, "Tên khách hàng đã tồn tại!", "Error", JOptionPane.ERROR_MESSAGE);
-            } else if (isDuplicateSDT) {
+//            if (isDuplicateName) {
+//                JOptionPane.showMessageDialog(this, "Tên khách hàng đã tồn tại!", "Error", JOptionPane.ERROR_MESSAGE);
+//            } else 
+            if (isDuplicateSDT) {
                 JOptionPane.showMessageDialog(this, "Số điện thoại đã tồn tại!", "Error", JOptionPane.ERROR_MESSAGE);
             } else if (isDuplicateEmail) {
                 JOptionPane.showMessageDialog(this, "Email đã tồn tại!", "Error", JOptionPane.ERROR_MESSAGE);
@@ -398,29 +407,29 @@ private void fillTable() {
                 }
             }
         }
-    
+
     }//GEN-LAST:event_btnsuaActionPerformed
 
     private void BtnxoaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BtnxoaActionPerformed
-// if (txtma.getText().trim().isEmpty() || !txtma.getText().matches("\\d+")) {
-//        JOptionPane.showMessageDialog(this, "Mã khách hàng không hợp lệ!", "Error", JOptionPane.ERROR_MESSAGE);
-//        return;
-//    }
+        if (txtma.getText().trim().isEmpty() || !txtma.getText().matches("\\d+")) {
+            JOptionPane.showMessageDialog(this, "Mã khách hàng không hợp lệ!", "Error", JOptionPane.ERROR_MESSAGE);
+            return;
+        }
 
-    int maKH = Integer.parseInt(txtma.getText());
+        int maKH = Integer.parseInt(txtma.getText());
 
-    boolean deleteSuccess = repositories_KhachHang.delete(maKH);
-    if (deleteSuccess) {
-        JOptionPane.showMessageDialog(this, "Xóa thành công!", "Success", JOptionPane.INFORMATION_MESSAGE);
-        fillTable();  // Cập nhật lại bảng sau khi xóa
-    } else {
-        JOptionPane.showMessageDialog(this, "Xóa thất bại!", "Error", JOptionPane.ERROR_MESSAGE);
-    }
+        boolean deleteSuccess = repositories_KhachHang.delete(maKH);
+        if (deleteSuccess) {
+            JOptionPane.showMessageDialog(this, "Xóa thành công!", "Success", JOptionPane.INFORMATION_MESSAGE);
+            fillTable();  // Cập nhật lại bảng sau khi xóa
+        } else {
+            JOptionPane.showMessageDialog(this, "Xóa thất bại!", "Error", JOptionPane.ERROR_MESSAGE);
+        }
 
     }//GEN-LAST:event_BtnxoaActionPerformed
 
     private void BtnTimkiemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BtnTimkiemActionPerformed
-         String input = txttk.getText();
+        String input = txttk.getText();
         if (input.isEmpty()) {
             JOptionPane.showMessageDialog(this, "Vui lòng nhập mã loại sản phẩm!", "Error", JOptionPane.ERROR_MESSAGE);
             return;

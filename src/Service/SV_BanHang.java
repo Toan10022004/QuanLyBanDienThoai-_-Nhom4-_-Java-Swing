@@ -442,4 +442,16 @@ public class SV_BanHang {
         } catch (Exception e) {
         }
     }
+
+    public void deleteHoaDon(Integer idHD) {
+        String sql = "DELETE FROM HoaDon\n"
+                + "WHERE (MaHD = ?)";
+        try {
+            conn = cdao.getConnectDAO();
+            ps = conn.prepareStatement(sql);
+            ps.setInt(1, idHD);
+            ps.executeUpdate();
+        } catch (Exception e) {
+        }
+    }
 }

@@ -25,40 +25,25 @@ public class BanHang_KhachHang extends javax.swing.JFrame {
     private Repositories_KhachHang repositories_KhachHang;
     private Repositories_KhachHang R_KH = new Repositories_KhachHang();
     private DefaultTableModel mol = new DefaultTableModel();
-//    private int i = -1;// chỉ số dòng trong bảng
+    private int i = -1;// chỉ số dòng trong bảng
 
     /**
      * Creates new form BanHang_KhachHang
      */
-    public BanHang_KhachHang() {
-        initComponents();
-        setLocationRelativeTo(null);
-        //JFrame.HIDE_ON_CLOSE  //sẽ bị ẩn nhưng vẫn tồn tại, và chương trình sẽ tiếp tục chạy.
-        this.setDefaultCloseOperation(Form_ChiTietSanPham.HIDE_ON_CLOSE);
-        repositories_KhachHang = new Repositories_KhachHang();
-        
-        fillTable(R_KH.getAll());
-        resetForm();
-
-        //Lọc Banhgr hãng
-        rowSorter = new TableRowSorter<>(btlqlkh.getModel());
-        btlqlkh.setRowSorter(rowSorter);
-    }
-
-    public void resetForm() {
-        txtma.setText("");
-        txtten.setText("");
-        txtsdt.setText("");
-        txtemai.setText("");
-        txtdiachi.setText("");
-    }
-
     void fillTable(ArrayList<Model_khachhang> list) {
         mol = (DefaultTableModel) btlqlkh.getModel();
         mol.setRowCount(0);
         for (Model_khachhang x : list) {
             mol.addRow(x.toDataRow());
         }
+    }
+
+    public BanHang_KhachHang() {
+        repositories_KhachHang = new Repositories_KhachHang();
+        initComponents();
+        fillTable(R_KH.getAll());
+        rowSorter = new TableRowSorter<>(btlqlkh.getModel());
+        btlqlkh.setRowSorter(rowSorter);
     }
 
     void showData(int i) {
@@ -70,6 +55,11 @@ public class BanHang_KhachHang extends javax.swing.JFrame {
     }
 
     private boolean isValidCustomerData() {
+// Kiểm tra mã khách hàng
+//        if (txtma.getText().trim().isEmpty() || !txtma.getText().matches("\\d+")) {
+//            JOptionPane.showMessageDialog(this, "Mã khách hàng không hợp lệ!", "Error", JOptionPane.ERROR_MESSAGE);
+//            return false;
+//        }
 
         // Kiểm tra tên khách hàng
         if (txtten.getText().trim().isEmpty() || !isValidName(txtten.getText())) {
@@ -82,7 +72,6 @@ public class BanHang_KhachHang extends javax.swing.JFrame {
             JOptionPane.showMessageDialog(this, "Số điện thoại không hợp lệ!", "Error", JOptionPane.ERROR_MESSAGE);
             return false;
         }
-
         // Kiểm tra email
         if (!isValidEmail(txtemai.getText())) {
             JOptionPane.showMessageDialog(this, "Email không hợp lệ!", "Error", JOptionPane.ERROR_MESSAGE);
@@ -103,7 +92,8 @@ public class BanHang_KhachHang extends javax.swing.JFrame {
     }
 
     public boolean isValidPhoneNumber(String phoneNumber) {
-        String phoneRegex = "^\\+?[0-9]{1,4}?[-.\\s]?\\(?[0-9]{1,4}?\\)?[-.\\s]?[0-9]{1,9}$";
+
+        String phoneRegex = "^\\d{10}$";
         return phoneNumber != null && phoneNumber.matches(phoneRegex);
     }
 
@@ -177,6 +167,7 @@ public class BanHang_KhachHang extends javax.swing.JFrame {
         jLabel2.setText("Tên");
 
         txtma.setEditable(false);
+        txtma.setText(" ");
         txtma.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 txtmaActionPerformed(evt);
@@ -450,9 +441,10 @@ public class BanHang_KhachHang extends javax.swing.JFrame {
             boolean isDuplicateSDT = R_KH.getAll().stream().anyMatch(kh -> kh.getSDT().equals(sdt));
             boolean isDuplicateEmail = R_KH.getAll().stream().anyMatch(kh -> kh.getEmail().equals(email));
 
-            if (isDuplicateName) {
-                JOptionPane.showMessageDialog(this, "Tên khách hàng đã tồn tại!", "Error", JOptionPane.ERROR_MESSAGE);
-            } else if (isDuplicateSDT) {
+            //        if (isDuplicateName) {
+            //            JOptionPane.showMessageDialog(this, "Tên khách hàng đã tồn tại!", "Error", JOptionPane.ERROR_MESSAGE);
+            //        } else
+            if (isDuplicateSDT) {
                 JOptionPane.showMessageDialog(this, "Số điện thoại đã tồn tại!", "Error", JOptionPane.ERROR_MESSAGE);
             } else if (isDuplicateEmail) {
                 JOptionPane.showMessageDialog(this, "Email đã tồn tại!", "Error", JOptionPane.ERROR_MESSAGE);
@@ -465,7 +457,6 @@ public class BanHang_KhachHang extends javax.swing.JFrame {
                 khachHang.setDiaChi(txtdiachi.getText());
                 if (R_KH.add(khachHang)) {
                     fillTable(R_KH.getAll());
-                    resetForm();
                     JOptionPane.showMessageDialog(this, "Thêm khách hàng thành công!", "Success", JOptionPane.INFORMATION_MESSAGE);
                 } else {
                     JOptionPane.showMessageDialog(this, "Thêm khách hàng thất bại!", "Error", JOptionPane.ERROR_MESSAGE);
@@ -488,9 +479,10 @@ public class BanHang_KhachHang extends javax.swing.JFrame {
             boolean isDuplicateEmail = repositories_KhachHang.getAll().stream()
                     .anyMatch(kh -> kh.getEmail().equals(email) && kh.getMaKH() != maKH);
 
-            if (isDuplicateName) {
-                JOptionPane.showMessageDialog(this, "Tên khách hàng đã tồn tại!", "Error", JOptionPane.ERROR_MESSAGE);
-            } else if (isDuplicateSDT) {
+            //            if (isDuplicateName) {
+            //                JOptionPane.showMessageDialog(this, "Tên khách hàng đã tồn tại!", "Error", JOptionPane.ERROR_MESSAGE);
+            //            } else
+            if (isDuplicateSDT) {
                 JOptionPane.showMessageDialog(this, "Số điện thoại đã tồn tại!", "Error", JOptionPane.ERROR_MESSAGE);
             } else if (isDuplicateEmail) {
                 JOptionPane.showMessageDialog(this, "Email đã tồn tại!", "Error", JOptionPane.ERROR_MESSAGE);
@@ -503,20 +495,20 @@ public class BanHang_KhachHang extends javax.swing.JFrame {
                 khachHang.setDiaChi(txtdiachi.getText());
                 if (repositories_KhachHang.update(khachHang)) {
                     fillTable(repositories_KhachHang.getAll());
-                    resetForm();
                     JOptionPane.showMessageDialog(this, "Sửa thông tin khách hàng thành công!", "Success", JOptionPane.INFORMATION_MESSAGE);
                 } else {
                     JOptionPane.showMessageDialog(this, "Sửa thông tin khách hàng thất bại!", "Error", JOptionPane.ERROR_MESSAGE);
                 }
             }
         }
+
     }//GEN-LAST:event_btnsuaActionPerformed
 
     private void BtnxoaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BtnxoaActionPerformed
-        // if (txtma.getText().trim().isEmpty() || !txtma.getText().matches("\\d+")) {
-        //        JOptionPane.showMessageDialog(this, "Mã khách hàng không hợp lệ!", "Error", JOptionPane.ERROR_MESSAGE);
-        //        return;
-        //    }
+        if (txtma.getText().trim().isEmpty() || !txtma.getText().matches("\\d+")) {
+            JOptionPane.showMessageDialog(this, "Mã khách hàng không hợp lệ!", "Error", JOptionPane.ERROR_MESSAGE);
+            return;
+        }
 
         int maKH = Integer.parseInt(txtma.getText());
 
@@ -524,7 +516,6 @@ public class BanHang_KhachHang extends javax.swing.JFrame {
         if (deleteSuccess) {
             JOptionPane.showMessageDialog(this, "Xóa thành công!", "Success", JOptionPane.INFORMATION_MESSAGE);
             fillTable();  // Cập nhật lại bảng sau khi xóa
-            resetForm();
         } else {
             JOptionPane.showMessageDialog(this, "Xóa thất bại!", "Error", JOptionPane.ERROR_MESSAGE);
         }
@@ -532,38 +523,38 @@ public class BanHang_KhachHang extends javax.swing.JFrame {
 
     private void btnthem1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnthem1ActionPerformed
         // TODO add your handling code here:
-        resetForm();
+//        resetForm();
     }//GEN-LAST:event_btnthem1ActionPerformed
 
     private void btlqlkhMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btlqlkhMouseClicked
         // TODO add your handling code here:
         int i = -1; // Chỉ số dòng trong bảng
 
-    if (evt.getClickCount() == 1) {
-        i = btlqlkh.getSelectedRow();
-        if (i != -1) {  // Kiểm tra nếu một hàng đã được chọn
-            this.showData(i);
-        } else {
-            JOptionPane.showMessageDialog(this, "No row selected"); // Thông báo nếu không có hàng nào được chọn
-        }
-    } else if (evt.getClickCount() == 2) {
-        i = btlqlkh.getSelectedRow();
-        String ma = btlqlkh.getValueAt(i, 0).toString();
-        String ten = btlqlkh.getValueAt(i, 1).toString();
-        String sdt = btlqlkh.getValueAt(i, 2).toString();
-        String email = btlqlkh.getValueAt(i, 3).toString();
-        String diaChi = btlqlkh.getValueAt(i, 4).toString();
-        Model_khachhang mdkh = new Model_khachhang();
-        mdkh.setMaKH(Integer.parseInt(ma));
-        mdkh.setTenKH(ten);
-        mdkh.setSDT(sdt);
-        mdkh.setEmail(email);
-        mdkh.setDiaChi(diaChi);
+        if (evt.getClickCount() == 1) {
+            i = btlqlkh.getSelectedRow();
+            if (i != -1) {  // Kiểm tra nếu một hàng đã được chọn
+                this.showData(i);
+            } else {
+                JOptionPane.showMessageDialog(this, "No row selected"); // Thông báo nếu không có hàng nào được chọn
+            }
+        } else if (evt.getClickCount() == 2) {
+            i = btlqlkh.getSelectedRow();
+            String ma = btlqlkh.getValueAt(i, 0).toString();
+            String ten = btlqlkh.getValueAt(i, 1).toString();
+            String sdt = btlqlkh.getValueAt(i, 2).toString();
+            String email = btlqlkh.getValueAt(i, 3).toString();
+            String diaChi = btlqlkh.getValueAt(i, 4).toString();
+            Model_khachhang mdkh = new Model_khachhang();
+            mdkh.setMaKH(Integer.parseInt(ma));
+            mdkh.setTenKH(ten);
+            mdkh.setSDT(sdt);
+            mdkh.setEmail(email);
+            mdkh.setDiaChi(diaChi);
 
 //        new Form_BanHang(mdkh).setVisible(true);
-        this.setVisible(false);
-        DataHolder.getInstance().setMdkh(mdkh);
-    }
+            this.setVisible(false);
+            DataHolder.getInstance().setMdkh(mdkh);
+        }
     }//GEN-LAST:event_btlqlkhMouseClicked
 
     private void txttkKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txttkKeyReleased

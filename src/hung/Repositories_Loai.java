@@ -58,15 +58,15 @@ private void closeResources() {
             Logger.getLogger(Repositories_KhachHang.class.getName()).log(Level.SEVERE, null, e);
         }
     }
-public boolean add(String tenLoai, String moTa) {
+public boolean add(Model_Loai loai) {
          sql = "insert into loaisp( ten_LSP, mo_ta) values (?,?)";
         try {
             if (con.isClosed()) {
                 con = DBConnect.getConnection();
             }
             ps = con.prepareStatement(sql);
-            ps.setString(1, tenLoai);
-            ps.setString(2,moTa);
+            ps.setString(1, loai.getTen_LSP());
+            ps.setString(2, loai.getMo_ta());
             ps.executeUpdate();
             return true;
         } catch (SQLException e) {
