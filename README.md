@@ -9,3 +9,11 @@ https://docs.google.com/spreadsheets/d/1nGShKV_aKyKGExNyz4ZYsLiiYl6ZA_yb2-OgnZCP
 
 Sơ đồ [ERD+US+GD] :
 https://drive.google.com/file/d/1L4vRqEUZ7PEf1gAwzOj6hvETQqBWO2Iu/view?usp=sharing
+
+Thành viên thực hiện :
+Tống Huy Toàn                  PH35194
+Phạm Tuyên                       PH54249
+Vũ Minh Công                   PH48302
+Hoàng Tuấn Thịnh             PH48247
+Phạm Việt Hùng                 PH52491
+
